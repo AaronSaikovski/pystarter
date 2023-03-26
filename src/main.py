@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """ Short description of this Python module.
 
 Longer description of this module.
