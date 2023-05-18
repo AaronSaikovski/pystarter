@@ -1,17 +1,25 @@
 #!/bin/sh
 
-#PIP Install
-#setup the virtual environment
+#Creates a new virtual environment in the current project folder.
 python3 -m venv .venv 
 
-#activate the virtual environment
+#Activates the virtual environment
 source .venv/bin/activate
 
-#install packages
+#To install packages into the virtual environment, run
+python3 -m pip install <package-name>
+
+#check if the enviromment is setup correctly
+pip list
+
+#once installed all the libraries needed - generate a requirements.txt for dependencies.
+pip freeze > requirements.txt
+
+#To install dependencies, run:
 pip install -r requirements.txt
 
-#upgrade PIP
-pip install --upgrade pip
+#to deactivate the virtual environment, run:
+deactivate
 
 
 #Miniconda setup
