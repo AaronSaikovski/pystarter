@@ -1,5 +1,5 @@
-import my_package
+import package_name
 
 
 def test_main():
-    project_name.main()
+    package_name.main()
