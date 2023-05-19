@@ -2,7 +2,7 @@
 Provides a helper module for displaying output with colours.
 """
 
-"""Private color constants to print in the console constants for this module 
+"""color constants to print in the console constants for this module 
 """
 __BLUE: str = "\033[94m"
 __CYAN: str = "\033[96m"
@@ -15,7 +15,7 @@ __UNDERLINE: str = "\033[4m"
 
 
 def print_ok_message(message_string: str) -> None:
-    """Prints an OK message using the console with the colour constant - __OK_GREEN
+    """Prints OK message - __OK_GREEN
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def print_ok_message(message_string: str) -> None:
 
 
 def print_warning_message(message_string: str) -> None:
-    """Prints a Warning message using the console with the colour constant - __WARNING
+    """Prints Warning message - __WARNING
 
     Parameters
     ----------
@@ -43,7 +43,7 @@ def print_warning_message(message_string: str) -> None:
 
 
 def print_error_message(message_string: str) -> None:
-    """Prints an Error message using the console with the colour constant - __ERROR
+    """Prints Error message  - __ERROR
 
     Parameters
     ----------
@@ -57,7 +57,7 @@ def print_error_message(message_string: str) -> None:
 
 
 def print_confirmation_message(message_string: str) -> None:
-    """Prints an confirmation message using the console with the colour constant - __BLUE
+    """Prints confirmation message - __BLUE
 
     Parameters
     ----------
@@ -71,7 +71,7 @@ def print_confirmation_message(message_string: str) -> None:
 
 
 def print_command_message(message_string: str) -> None:
-    """Prints an command to run message using the console with the colour constant - __CYAN
+    """Prints acommand message - __CYAN
 
     Parameters
     ----------
@@ -85,7 +85,7 @@ def print_command_message(message_string: str) -> None:
 
 
 def print_bold_message(message_string: str) -> None:
-    """Prints a bold message using the console with the colour constant - __BOLD
+    """Prints a bold message - __BOLD
 
     Parameters
     ----------
