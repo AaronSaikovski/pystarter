@@ -1,1 +1,2 @@
 # constants here
+ATESTCONST = "somevalue"
