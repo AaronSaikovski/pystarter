@@ -20,11 +20,11 @@ Click the [Use this template](https://github.com/Justintime50/python-template/ge
 
 ### Easy text replacements
 
-1. Replace all instances of `project_name` with the name of your project
-    * These are the Python snake_case references (eg: `project_name`)
-1. Replace all instances of `PROJECT_NAME_URL` with the name of your project
+1. Replace all instances of `package_name` with the name of your project
+    * These are the Python snake_case references (eg: `package_name`)
+2. Replace all instances of `PROJECT_NAME_URL` with the name of your project
     * These are the references to your project that will appear in URLs and are typically hyphenated (eg: `project-name`)
-1. Replace all instances of `USERNAME` with the name of the author or owner of the project
+3. Replace all instances of `USERNAME` with the name of the author or owner of the project
     * These are references typically found in the URL of your project as it appears on GitHub
 
 ### File configuration
