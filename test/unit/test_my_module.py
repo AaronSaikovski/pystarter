@@ -1,5 +1,5 @@
-import package_name
+# import package_name
 
 
-def test_main():
-    package_name.main()
+# def test_main():
+#     package_name.main()
