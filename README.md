@@ -14,7 +14,7 @@ Python projects take a long time to setup with all the various files, the virtua
 
 ## Install
 
-Click the [Use this template](https://github.com/Justintime50/python-template/generate) button at the top of this project's GitHub page to get started.
+Click the [Use this template](https://github.com/AaronSaikovski/pystarter/generate) button at the top of this project's GitHub page to get started.
 
 ## Usage
 
