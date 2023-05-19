@@ -4,3 +4,4 @@
 
 - added package and module helper
 - added flake8 config
+- fixed github action testy
