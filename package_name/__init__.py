@@ -1,5 +1,5 @@
-# from package_name.my_module import main
+from package_name.my_module import main
 
-# __all__ = [
-#     'main',
-# ]
+__all__ = [
+    'main',
+]
