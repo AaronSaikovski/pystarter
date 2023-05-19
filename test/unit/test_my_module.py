@@ -1,4 +1,4 @@
-import project_name
+import my_package
 
 
 def test_main():
