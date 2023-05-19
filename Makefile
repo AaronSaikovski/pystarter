@@ -22,12 +22,12 @@ clean:
 	find . -name '*.pyc' -delete
 
 ## black - Runs the Black Python formatter against the project
-black:
-	$(VIRTUAL_BIN)/black $(PROJECT_NAME)/ $(TEST_DIR)/
+# black:
+# 	$(VIRTUAL_BIN)/black $(PROJECT_NAME)/ $(TEST_DIR)/
 
 ## black-check - Checks if the project is formatted correctly against the Black rules
-black-check:
-	$(VIRTUAL_BIN)/black $(PROJECT_NAME)/ $(TEST_DIR)/ --check
+# black-check:
+# 	$(VIRTUAL_BIN)/black $(PROJECT_NAME)/ $(TEST_DIR)/ --check
 
 ## format - Runs all formatting tools against the project
 format: black isort lint mypy
