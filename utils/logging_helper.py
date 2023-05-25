@@ -8,6 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
+# ******************************************************************************** #
 
 def log(func):
     '''
@@ -31,6 +32,7 @@ def log(func):
 
     return wrapper
 
+# ******************************************************************************** #
 
 # usage of decorator
 # @log

@@ -8,6 +8,8 @@ class StandardClass:
         likes_spam: A boolean indicating if we like SPAM or not.
         eggs: An integer count of the eggs we have laid.
     """
+    # ******************************************************************************** #
+
     def __init__(self) -> None:
         """Initializes the instance based on spam preference.
 
@@ -15,7 +17,8 @@ class StandardClass:
           likes_spam: Defines if instance exhibits this preference.
         """
         pass
-
+    # ******************************************************************************** #
+    
     def public_method(self) -> None:
         """Public method
 
@@ -23,4 +26,7 @@ class StandardClass:
           likes_spam: Defines if instance exhibits this preference.
         """
         pass
+  
+    # ******************************************************************************** #
+
     
