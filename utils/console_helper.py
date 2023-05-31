@@ -15,6 +15,7 @@ __UNDERLINE: str = "\033[4m"
 
 # ******************************************************************************** #
 
+
 def print_ok_message(message_string: str) -> None:
     """Prints OK message - __OK_GREEN
 
@@ -28,7 +29,9 @@ def print_ok_message(message_string: str) -> None:
     """
     print(f"{__OK_GREEN}{message_string}{__ENDC}")
 
+
 # ******************************************************************************** #
+
 
 def print_warning_message(message_string: str) -> None:
     """Prints Warning message - __WARNING
@@ -43,7 +46,9 @@ def print_warning_message(message_string: str) -> None:
     """
     print(f"{__WARNING}{message_string}{__ENDC}")
 
+
 # ******************************************************************************** #
+
 
 def print_error_message(message_string: str) -> None:
     """Prints Error message  - __ERROR
@@ -58,7 +63,9 @@ def print_error_message(message_string: str) -> None:
     """
     print(f"{__ERROR}{message_string}{__ENDC}")
 
+
 # ******************************************************************************** #
+
 
 def print_confirmation_message(message_string: str) -> None:
     """Prints confirmation message - __BLUE
@@ -73,7 +80,9 @@ def print_confirmation_message(message_string: str) -> None:
     """
     print(f"{__BLUE}{message_string}{__ENDC}")
 
+
 # ******************************************************************************** #
+
 
 def print_command_message(message_string: str) -> None:
     """Prints acommand message - __CYAN
@@ -88,7 +97,9 @@ def print_command_message(message_string: str) -> None:
     """
     print(f"{__CYAN}{message_string}{__ENDC}")
 
+
 # ******************************************************************************** #
+
 
 def print_bold_message(message_string: str) -> None:
     """Prints a bold message - __BOLD
@@ -102,5 +113,6 @@ def print_bold_message(message_string: str) -> None:
     nothing - prints formatted output.
     """
     print(f"{__BOLD}{message_string}{__ENDC}")
+
 
 # ******************************************************************************** #

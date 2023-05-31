@@ -6,6 +6,7 @@ Longer description of this module.
 """
 # ******************************************************************************** #
 
+
 def main():
     """Example function with types documented in the docstring.
 
@@ -30,7 +31,8 @@ def main():
 
 
     """
-    print("This is the main method.")
+    print("** This is the main method.** ")
+
 
 # ******************************************************************************** #
 
