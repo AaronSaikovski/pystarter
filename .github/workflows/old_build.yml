@@ -1,6 +1,6 @@
 name: old_build
 
-on: [push]
+on: []
 
 jobs:
   lint:
