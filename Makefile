@@ -29,7 +29,7 @@ run: activate
 
 ## clean - Cleans the environment
 clean:
-	rm -rf __pycache__
+	find . | grep -E "(__pycache__|\.pyc$)" | xargs rm -rf
 	rm -rf .venv
 	rm -rf venv
 	rm -rf .pytest_cache
