@@ -23,12 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff pytest isort
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: sort imports with isort
+      - name: isort check
         run: |
-          isort .
-      - name: Lint with ruff
+          isort --check --diff .
+      - name: Lint check with ruff
         run: |
-          ruff . --fix
+          ruff check . -q
       - name: Test with pytest
         run: |
           pytest
