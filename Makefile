@@ -1,6 +1,6 @@
 .ONESHELL:
 
-.DEFAULT_GOAL := run
+.DEFAULT_GOAL := create
 
 # Set runtime versions
 PYTHON = ./venv/bin/python3
@@ -33,6 +33,11 @@ clean:
 	rm -rf .venv
 	rm -rf venv
 	rm -rf .pytest_cache
+	rm -rf ./dist
+	rm -rf ./build
+	rm -rf .ruff_cache
+	rm -rf .mypy_cache
+	
 	
 ## freeze - freeze the environment to requirements.txt
 freeze: activate
@@ -54,8 +59,16 @@ isort: activate
 isort-check: activate
 	$(VIRTUAL_BIN)/isort . --check-only
 
-# lint - Lint the project using black
+## lint - Lint the project using ruff --fix
 lint: activate
-	black .
+	ruff . --fix
 
-.PHONY: help run clean format isort isort-check test lint freeze
+## typecheck - use mypy to typecheck the code
+typecheck: activate
+	mypy .
+
+## installer - uses pyinstaller to package your Python application into a single package
+installer: activate
+	pyinstaller ./main.py
+
+.PHONY: help run clean format isort isort-check test lint freeze typecheck installer

@@ -1,12 +1,5 @@
-black
-click
-exceptiongroup
-iniconfig
-mypy-extensions
-packaging
-pathspec
-platformdirs
-pluggy
-pytest
-tomli
+isort
+mypy
 ruff
+pytest
+pyinstaller
