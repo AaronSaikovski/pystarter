@@ -17,7 +17,6 @@ class StandardClass:
         Args:
           likes_spam: Defines if instance exhibits this preference.
         """
-        pass
 
     # ******************************************************************************** #
 
@@ -27,6 +26,5 @@ class StandardClass:
         Args:
           likes_spam: Defines if instance exhibits this preference.
         """
-        pass
 
     # ******************************************************************************** #

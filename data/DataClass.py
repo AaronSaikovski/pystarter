@@ -21,7 +21,6 @@ class SampleDataClass:
         Args:
           likes_spam: Defines if instance exhibits this preference.
         """
-        pass
 
     # ******************************************************************************** #
 
@@ -31,4 +30,3 @@ class SampleDataClass:
         Args:
           likes_spam: Defines if instance exhibits this preference.
         """
-        pass

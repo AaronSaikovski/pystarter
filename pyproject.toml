@@ -1,7 +1,28 @@
-[tool.black]
-preview = true
-line-length = 120
-skip-string-normalization = true
-
-[tool.isort]
-profile = "black"
+[tool.ruff] 
+extend-select = [
+    "B",
+    "BLE",
+    "C4",
+    "ERA",
+    "I",
+    "ICN",
+    "INP",
+    "ISC",
+    "N",
+    "NPY",
+    "PGH",
+    "PIE",
+    "Q",
+    "RET",
+    "RSE",
+    "RUF",
+    "S",
+    "SIM",
+    "T20",
+    "TCH",
+    "TID",
+    "YTT",
+]
+ignore=["E402","B905","N818","S101","T201"]
+show-fixes = true
+#target-version = "py37"

@@ -12,10 +12,10 @@ logger = logging.getLogger()
 
 
 def log(func):
-    '''
+    """
     Logging decorator
     source: https://ankitbko.github.io/blog/2021/04/logging-in-python/
-    '''
+    """
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
@@ -28,7 +28,7 @@ def log(func):
             return result
         except Exception as ex:
             # pylint: disable=logging-fstring-interpolation
-            logger.exception(f"Exception in {func.__name__}. exception: {str(ex)}")
+            logger.exception(f"Exception in {func.__name__}. exception: {ex!s}")
             raise ex
 
     return wrapper

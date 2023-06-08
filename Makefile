@@ -61,7 +61,7 @@ isort-check: activate
 
 ## lint - Lint the project using ruff --fix
 lint: activate
-	ruff . --fix
+	$(VIRTUAL_BIN)/ruff . --fix
 
 ## typecheck - use mypy to typecheck the code
 typecheck: activate
