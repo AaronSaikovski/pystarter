@@ -25,4 +25,6 @@ extend-select = [
 ]
 ignore=["E402","B905","N818","S101","T201"]
 show-fixes = true
-#target-version = "py37"
+
+# Assume Python 3.11.
+target-version = "py311"
