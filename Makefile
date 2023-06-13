@@ -4,7 +4,7 @@
 
 # Set runtime versions
 PYTHON = ./venv/bin/python3
-PIP = ./venv/bin/pip
+PIP = ./venv/bin/pip3
 VIRTUAL_BIN := ./venv/bin
 
 ## help - Display help about make targets for this Makefile
@@ -13,7 +13,7 @@ help:
 
 ## create - create and activate the virtual environment
 create: requirements.txt
-	python -m venv venv
+	python3 -m venv venv
 	chmod +x venv/bin/activate
 	. ./venv/bin/activate
 	$(PIP) install -r requirements.txt
