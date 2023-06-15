@@ -20,7 +20,7 @@ create: requirements.txt
 	$(PIP) install --upgrade pip
 
 ## activate - Activate the virtual environment
-activate: create
+activate: 
 	. ./venv/bin/activate
 
 ## run - run the script
