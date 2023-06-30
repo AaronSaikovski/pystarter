@@ -21,13 +21,17 @@ create:
 	poetry update
 	poetry add --dev pytest pytest-cov black ruff ruff bandit safety pyinstaller
 
-## install - Install the packages 
-install: 
+## deps - Install the dependencies 
+deps: 
 	poetry add --dev pytest pytest-cov black ruff ruff bandit safety pyinstaller
 
 ## activate - Activates the virtual environment
 activate: 
 	. ./.venv/bin/activate
+
+## install - installs the poetry environment with dependencies
+install: 
+	poetry install
 
 ## run - Run the script main.py
 run:  activate
@@ -58,4 +62,4 @@ lint: activate
 installer: activate
 	pyinstaller ./main.py
 
-.PHONY: help run clean test lint installer
+.PHONY: help run clean test lint installer deps install
