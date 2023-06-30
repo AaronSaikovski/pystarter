@@ -2,32 +2,38 @@
 
 .DEFAULT_GOAL := create
 
-# Set runtime versions
-PYTHON = ./venv/bin/python3
-PIP = ./venv/bin/pip3
-VIRTUAL_BIN := ./venv/bin
+# Set Project Variables
+PROJECT_PYTHON_VER = ">=3.11,<3.13"
+PROJECT_NAME = "pystarter"
+PROJECT_DESC = "a sample python project"
+PROJECT_AUTHOR = "A User <auser@someorg.com>"
+PROJECT_VERSION = "1.0.0"
+PROJECT_LICENSE ="MIT"
 
 ## help - Display help about make targets for this Makefile
 help:
 	@cat Makefile | grep '^## ' --color=never | cut -c4- | sed -e "`printf 's/ - /\t- /;'`" | column -s "`printf '\t'`" -t
 
-## create - create and activate the virtual environment
-create: requirements.txt
-	python3 -m venv venv
-	chmod +x venv/bin/activate
-	. ./venv/bin/activate
-	$(PIP) install -r requirements.txt
-	$(PIP) install --upgrade pip
+## create - Inits the poetry virtual environment and install baseline packages
+create: 
+	poetry config virtualenvs.in-project true
+	poetry init --name=$(PROJECT_NAME) --description=$(PROJECT_DESC) --author=$(PROJECT_AUTHOR) --python=$(PROJECT_PYTHON_VER) --license=$(PROJECT_LICENSE) --no-interaction 
+	poetry update
+	poetry add --dev pytest pytest-cov black ruff ruff bandit safety pyinstaller
 
-## activate - Activate the virtual environment
+## install - Install the packages 
+install: 
+	poetry add --dev pytest pytest-cov black ruff ruff bandit safety pyinstaller
+
+## activate - Activates the virtual environment
 activate: 
-	. ./venv/bin/activate
+	. ./.venv/bin/activate
 
-## run - run the script
-run: activate
-	$(PYTHON) main.py
+## run - Run the script main.py
+run:  activate
+	poetry run python main.py
 
-## clean - Cleans the environment
+## clean - Cleans the environment, Overwrites the pyproject.toml file
 clean:
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	rm -rf .venv
@@ -37,30 +43,19 @@ clean:
 	rm -rf ./build
 	rm -rf .ruff_cache
 	rm -rf .mypy_cache
-	
-	
-## freeze - freeze the environment to requirements.txt
-freeze: activate
-	$(PIP) freeze > requirements.txt
+	rm -rf poetry.lock
+	cat pyproject_base.toml > pyproject.toml
 
-## install - install the packages fromrequirements.txt
-install: activate
-	$(PIP) install -r requirements.txt
-
-## test - Test the project
+## test - Tests the project
 test: activate
-	$(VIRTUAL_BIN)/pytest
+	poetry run python -m pytest tests
 
-## lint - Lint the project using ruff --fix
+## lint - Lints the project using ruff --fix
 lint: activate
-	$(VIRTUAL_BIN)/ruff . --fix
-
-## typecheck - use mypy to typecheck the code
-typecheck: activate
-	mypy .
+	poetry run ruff . --fix
 
 ## installer - uses pyinstaller to package your Python application into a single package
 installer: activate
 	pyinstaller ./main.py
 
-.PHONY: help run clean format test lint freeze typecheck installer
+.PHONY: help run clean test lint installer

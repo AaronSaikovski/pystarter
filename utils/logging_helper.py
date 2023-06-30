@@ -24,8 +24,7 @@ def log(func):
         signature = ", ".join(args_repr + kwargs_repr)
         logger.debug("function {%f} called with args {%s}", func.__name__, signature)
         try:
-            result = func(*args, **kwargs)
-            return result
+            return func(*args, **kwargs)
         except Exception as ex:
             # pylint: disable=logging-fstring-interpolation
             logger.exception(f"Exception in {func.__name__}. exception: {ex!s}")

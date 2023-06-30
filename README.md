@@ -2,40 +2,39 @@
 
 # Python Starter Project Boilerplate Template
 
-A Python starter template to save you time and energy.
+A Python boilerplate starter project template to setup a baseline Python project for you to get started.
 
 [![Build Status](https://github.com/AaronSaikovski/pystarter/workflows/build/badge.svg)](https://github.com/AaronSaikovski/pystarter/actions)
 [![Coverage Status](https://coveralls.io/repos/github/AaronSaikovski/pystarter/badge.svg?branch=main)](https://coveralls.io/github/AaronSaikovski/pystarter?branch=main)
 [![Licence](https://img.shields.io/github/license/AaronSaikovski/pystarter)](LICENSE)
 
 </div>
-Python projects take a long time to setup with all the various files, the virtual environment, and keeping things uniform across projects. With this Python template, you can quickly setup boilerplate code and miscellaneous items for your Python project saving you time and energy so you can get back to coding.
-
-## Install
-
-Click the [Use this template](https://github.com/AaronSaikovski/pystarter/generate) button at the top of this project's GitHub page to get started.
+Python projects are tricky to setup correctly and as such the creation of this project came about. I hope you enjoy this and enjoy using it as much as I do.
+This has been recently updated to use the awesome [Poetry](https://python-poetry.org/) packaging and dependency toolchain.
 
 ## Usage
 
-### Easy text replacements
+Click the [Use this template](https://github.com/AaronSaikovski/pystarter/generate) button at the top of this project's GitHub page to get started.
 
-1. Replace all instances of `package_name` with the name of your project
-   - These are the Python snake_case references (eg: `package_name`)
-2. Replace all instances of `PROJECT_NAME_URL` with the name of your project
-   - These are the references to your project that will appear in URLs and are typically hyphenated (eg: `project-name`)
-3. Replace all instances of `USERNAME` with the name of the author or owner of the project
-   - These are references typically found in the URL of your project as it appears on GitHub
+## Prequisites
 
-### File configuration
+- Python v3.10 or higher needs to be installed - https://www.python.org/
+- Poetry v1.5.1 or higher needs to be installed - https://python-poetry.org/docs/#installation
 
-1. Configure the `setup.py` file
-1. Configure the `Makefile` targets - run `Makefile help` for more assistance.
-1. Update the name in the `LICENSE` or swap it out entirely
-1. Configure the `.github/workflows/build.yml` file
-1. Update the `CHANGELOG.md` with your own info
-1. Rename other files/folders as needed and configure their content
-1. Delete this `README` and rename `README_project.md` to `README.md`
+## Setup
+
+The `Makefile` contains all the steps to get going - simple run `make help` to get more information.
+
+1. Run `make create` to create and install the poetry environment. This will configure and setup the base poetry environment to get started and will install the base packages.
+2. Ensure your Python interpreter is set to `.venv:poetry` in Visual studio code.
+3. Run `make activate` to activate the virtual environment.
+4. Run `make run` to run `main.py` in your root directory.
+5. Run `make test` to execute the unit tests in the `tests` folder.
+6. Run `make lint` to run the [ruff].(https://github.com/astral-sh/ruff) linting tool and make fixes.
+7. Run `make clean` to clean out the project and reset it to a base setup. **This process will overwrite the pyproject.toml file**
+8. Run `make installer` to build the project using [Pyinstaller](https://pyinstaller.org/).
 
 ## Attribution
 
+- Advanced poetry setup: https://testdriven.io/blog/python-project-workflow/
 - original concept derived from here: https://github.com/Justintime50/python-template
