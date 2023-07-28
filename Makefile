@@ -64,6 +64,6 @@ lint: activate
 
 ## installer - uses pyinstaller to package your Python application into a single package
 installer: activate
-	pyinstaller ./main.py
+	poetry run pyinstaller ./main.py
 
 .PHONY: help run clean test lint installer deps install
