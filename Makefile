@@ -54,6 +54,10 @@ clean:
 test: activate
 	poetry run python -m pytest tests
 
+## update - updates dependency versions
+update: activate
+	poetry update -v
+
 ## lint - Lints the project using ruff --fix
 lint: activate
 	poetry run ruff . --fix
