@@ -62,8 +62,14 @@ update: activate
 lint: activate
 	poetry run ruff . --fix
 
+
+## vulncheck - Checks for vulnerabilities in the project
+vulncheck: 
+	poetry run bandit -r .
+
+
 ## installer - uses pyinstaller to package your Python application into a single package
 installer: activate
 	poetry run pyinstaller ./main.py
 
-.PHONY: help run clean test lint installer deps install
+.PHONY: help run clean test lint installer deps install vulncheck
