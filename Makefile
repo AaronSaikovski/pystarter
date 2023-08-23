@@ -19,11 +19,11 @@ create:
 	poetry config virtualenvs.in-project true
 	poetry init --name=$(PROJECT_NAME) --description=$(PROJECT_DESC) --author=$(PROJECT_AUTHOR) --python=$(PROJECT_PYTHON_VER) --license=$(PROJECT_LICENSE) --no-interaction 
 	poetry update
-	poetry add --dev pytest pytest-cov black ruff ruff bandit safety pyinstaller
+	poetry add pytest ruff bandit pyinstaller
 
 ## deps - Install the dependencies 
 deps: 
-	poetry add --dev pytest pytest-cov black ruff ruff bandit safety pyinstaller
+	poetry add pytest ruff bandit pyinstaller
 
 ## activate - Activates the virtual environment
 activate: 
