@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  pystarter:
+    image: pystarter
+    build:
+      context: .
+      dockerfile: ./Dockerfile

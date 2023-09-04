@@ -6,17 +6,21 @@ import time
 
 # ******************************************************************************** #
 
-def profile_func (func) :
+
+def profile_func(func):
     """
-        Profile Logging decorator 
+    Profile Logging decorator
     """
+
     @functools.wraps(func)
-    def wrapper (*args, **kwargs):
-        start = time.time ()
-        func (*args, **kwargs)
-        end = time.time ()
-        print (f"Elapsed time: {(end - start) *1000:.3f}ms")
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        func(*args, **kwargs)
+        end = time.time()
+        print(f"Elapsed time: {(end - start) *1000:.3f}ms")
+
     return wrapper
+
 
 # ******************************************************************************** #
 

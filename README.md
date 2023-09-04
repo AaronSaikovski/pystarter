@@ -5,7 +5,6 @@
 A Python boilerplate starter project template to setup a baseline Python project for you to get started.
 
 [![Build Status](https://github.com/AaronSaikovski/pystarter/workflows/build/badge.svg)](https://github.com/AaronSaikovski/pystarter/actions)
-[![Coverage Status](https://coveralls.io/repos/github/AaronSaikovski/pystarter/badge.svg?branch=main)](https://coveralls.io/github/AaronSaikovski/pystarter?branch=main)
 [![Licence](https://img.shields.io/github/license/AaronSaikovski/pystarter)](LICENSE)
 
 </div>

@@ -1,11 +1,9 @@
-import pytest
-
 # ******************************************************************************** #
 
 
-@pytest.fixture
-def mock_function():
-    pass
+def sample_function():
+    """a sample function"""
+    return "OK from Module"
 
 
 # ******************************************************************************** #

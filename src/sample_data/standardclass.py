@@ -11,20 +11,22 @@ class StandardClass:
 
     # ******************************************************************************** #
 
-    def __init__(self) -> None:
+    def __init__(self, someintvalue: int) -> None:
         """Initializes the instance based on spam preference.
 
         Args:
-          likes_spam: Defines if instance exhibits this preference.
+          someintvalue: some int value
         """
+        self.someintvalue = someintvalue
 
     # ******************************************************************************** #
 
-    def public_method(self) -> None:
+    def return_some_value(self) -> int:
         """Public method
 
         Args:
           likes_spam: Defines if instance exhibits this preference.
         """
+        return self.someintvalue
 
     # ******************************************************************************** #

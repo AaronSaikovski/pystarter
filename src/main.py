@@ -4,15 +4,17 @@
 Longer description of this module.
 
 """
-import utils.console_helper as console
-import utils.logging_helper as logging
-import utils.profiling_helper as profiler
+import sample_data.standardclass as standardclass
+import tools.console_helper as console
+import tools.logging_helper as logging
+import tools.profiling_helper as profiler
 
 # ******************************************************************************** #
 
+
 @logging.log
 @profiler.profile_func
-def add_nums_test (num1: int, num2: int) -> int:
+def add_nums_test(num1: int, num2: int) -> int:
     """adds two numbers as a test
 
     Args:
@@ -21,11 +23,12 @@ def add_nums_test (num1: int, num2: int) -> int:
 
     Returns:
         int: sum of numbers
-    """	
+    """
     return num1 + num2
 
 
 # ******************************************************************************** #
+
 
 @profiler.profile_func
 def main():
@@ -55,8 +58,11 @@ def main():
 
     console.print_ok_message("** This is the main method.** ")
 
-    nums_test = add_nums_test(50,50)
-    print (f"Adding nums: {nums_test}")
+    nums_test = add_nums_test(50, 50)
+    print(f"Adding nums: {nums_test}")
+
+    sample_class = standardclass.StandardClass(100)
+    print(f"From Class instance: {sample_class.return_some_value()}")
 
 
 # ******************************************************************************** #

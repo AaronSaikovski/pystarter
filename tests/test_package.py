@@ -1,11 +1,10 @@
-# ******************************************************************************** #
-
-
-def main():
-    """The main entrypoint for this script used in the setup.py file."""
-
+from src.sample_package import sample_module
 
 # ******************************************************************************** #
 
-if __name__ == "__main__":
-    main()
+
+def test_main():
+    assert sample_module.sample_function() == "OK from Module"
+
+
+# ******************************************************************************** #
