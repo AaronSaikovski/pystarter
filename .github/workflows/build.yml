@@ -11,58 +11,29 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-        
       - name: Install poetry
         run: |
           python -m pip install poetry==1.5.1
-
       - name: Configure poetry
         run: |
           python -m poetry config virtualenvs.in-project true
-
       - name: Cache the virtualenv
         uses: actions/cache@v2
         with:
           path: ./.venv
           key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-
       - name: Install dependencies
         run: |
           python -m poetry install
-
       - name: Lint check with ruff
         run: |
           python -m poetry run python -m pytest run ruff check . -q
-
       - name: Test with pytest
         run: |
           python -m poetry run python -m pytest
-
-
-
-
-      steps:
-        - uses: actions/checkout@v3
-      
-
-      
-        - name: Cache the virtualenv
-          uses: actions/cache@v2
-          with:
-            path: ./.venv
-            key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-      
-        - name: Install dependencies
-          run: |
-            python -m poetry install
-      
-        - name: Run tests
-          run: |
-            python -m poetry run python -m pytest -sxv
