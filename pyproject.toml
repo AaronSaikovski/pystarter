@@ -25,26 +25,3 @@ extend-select = [
 ]
 ignore=["E402","B905","N818","S101","T201"]
 show-fixes = true
-[tool.poetry]
-name = "pystarter"
-version = "0.1.0"
-description = "a sample python project"
-authors = ["A User <auser@someorg.com>"]
-license = "MIT"
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.1"
-pytest-cov = "^4.1.0"
-black = "^23.7.0"
-ruff = "^0.0.287"
-bandit = "^1.7.5"
-pyinstaller = "^5.13.2"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
