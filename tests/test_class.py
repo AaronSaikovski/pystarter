@@ -1,4 +1,4 @@
-import src.sample_data.standardclass as standardclass
+import sample_data.standardclass as standardclass
 
 
 def test_class():

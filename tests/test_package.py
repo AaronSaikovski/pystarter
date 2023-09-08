@@ -1,4 +1,4 @@
-from src.sample_package import sample_module
+from sample_package import sample_module
 
 # ******************************************************************************** #
 

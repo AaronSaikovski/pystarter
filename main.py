@@ -4,10 +4,13 @@
 Longer description of this module.
 
 """
+
+
 import sample_data.standardclass as standardclass
-import tools.console_helper as console
-import tools.logging_helper as logging
-import tools.profiling_helper as profiler
+import sample_package.sample_module as sample_module
+import utils.console_helper as console
+import utils.logging_helper as logging
+import utils.profiling_helper as profiler
 
 # ******************************************************************************** #
 
@@ -63,6 +66,8 @@ def main():
 
     sample_class = standardclass.StandardClass(100)
     print(f"From Class instance: {sample_class.return_some_value()}")
+
+    print(f"From module: {sample_module.sample_function()}")
 
 
 # ******************************************************************************** #

@@ -35,7 +35,7 @@ install:
 
 ## run - Run the script main.py
 run:  activate
-	poetry run python $(MAIN_SRC_DIR)/main.py
+	poetry run python main.py
 	
 ## clean - Cleans the environment, Overwrites the pyproject.toml file
 clean:
@@ -71,6 +71,6 @@ vulncheck:
 
 ## release - uses pyinstaller to package your Python application into a single package
 release: activate
-	poetry run pyinstaller $(MAIN_SRC_DIR)/main.py
+	poetry run pyinstaller main.py
 
 .PHONY: help run clean test lint installer deps install vulncheck

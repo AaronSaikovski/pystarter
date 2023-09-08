@@ -1,4 +1,4 @@
-import src.common.constants as constants
+import common.constants as constants
 
 # ******************************************************************************** #
 
