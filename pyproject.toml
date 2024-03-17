@@ -25,18 +25,3 @@ extend-select = [
 ]
 ignore=["E402","B905","N818","S101","T201"]
 show-fixes = true
-[tool.poetry]
-name = "pystarter"
-version = "0.1.0"
-description = "a sample python project"
-authors = ["A User <auser@someorg.com>"]
-license = "MIT"
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = ">=3.11,<3.13"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"

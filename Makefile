@@ -3,7 +3,7 @@
 .DEFAULT_GOAL := create
 
 # Set Project Variables
-PROJECT_PYTHON_VER = ">=3.11,<3.13"
+PROJECT_PYTHON_VER = ">=3.12,<3.13"
 PROJECT_NAME = "pystarter"
 PROJECT_DESC = "a sample python project"
 PROJECT_AUTHOR = "A User <auser@someorg.com>"
@@ -19,7 +19,8 @@ help:
 create:  
 	poetry config virtualenvs.in-project true
 	poetry init --name=$(PROJECT_NAME) --description=$(PROJECT_DESC) --author=$(PROJECT_AUTHOR) --python=$(PROJECT_PYTHON_VER) --license=$(PROJECT_LICENSE) --no-interaction 
-	
+	poetry env use python3.12
+
 ## deps - Install the dependencies 
 deps: 	
 	poetry add pytest pytest-cov black ruff bandit pyinstaller --group dev
@@ -62,7 +63,7 @@ update: activate
 
 ## lint - Lints the project using ruff --fix
 lint: activate
-	poetry run ruff . --fix
+	poetry run ruff check . --fix
 	poetry run black --line-length 128 --target-version py39 .
 
 ## vulncheck - Checks for vulnerabilities in the project
