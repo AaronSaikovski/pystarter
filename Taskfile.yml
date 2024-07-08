@@ -136,7 +136,7 @@ tasks:
 
   ## vulncheck - Checks for vulnerabilities in the project
   vulncheck:
-    desc: " Checks for vulnerabilities in the project"
+    desc: "Checks for vulnerabilities in the project"
     cmds:
       - poetry run bandit -r .
 
@@ -148,4 +148,23 @@ tasks:
     deps: [activate]
     cmds:
       - poetry run pyinstaller main.py
-###############################################################################
+
+  ###############################################################################
+
+  ## docker-build - builds a docker image based on the docker file
+  docker-build:
+    desc: "builds a docker image based on the docker file"
+    deps: [deps]
+    cmds:
+      - docker build -t $PROJECT_NAME:latest .
+
+  ###############################################################################
+
+  ## docker-run - runs the docker container
+  docker-run:
+    desc: "builds a docker image based on the docker file"
+    #deps: [docker-build]
+    cmds:
+      - docker run $PROJECT_NAME:latest
+
+  ###############################################################################

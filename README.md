@@ -28,17 +28,20 @@ The toolchain is driven by using [Taskfile](https://taskfile.dev/) and all comma
 The list of commands is as follows:
 
 ```bash
-* activate:        Activates the virtual environment.
-* clean:           Cleans the environment, Overwrites the pyproject.toml file
-* create:          Inits the poetry virtual environment and installs baseline packages.
-* deps:            Install the dependencies.
-* install:         installs the poetry environment with dependencies.
-* lint:            Lints the project using ruff --fix
-* release:         uses pyinstaller to package your Python application into a single package
-* run:             Run the script main.py
-* test:            Tests the project.
-* update:          updates dependency versions
-* vulncheck:       Checks for vulnerabilities in the project
+* activate:           Activates the virtual environment.
+* clean:              Cleans the environment, Overwrites the pyproject.toml file
+* create:             Inits the poetry virtual environment and installs baseline packages.
+* default:            Call Create as default cmd.
+* deps:               Install the dependencies.
+* docker-build:       builds a docker image based on the docker file
+* docker-run:         builds a docker image based on the docker file
+* install:            installs the poetry environment with dependencies.
+* lint:               Lints the project using ruff --fix
+* release:            uses pyinstaller to package your Python application into a single package
+* run:                Run the script main.py
+* test:               Tests the project.
+* update:             updates dependency versions
+* vulncheck:          Checks for vulnerabilities in the project
 ```
 
 Execute using the taskfile utility:
