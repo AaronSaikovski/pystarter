@@ -1,6 +1,7 @@
 """
 Generic logging module
 """
+
 import functools
 import logging
 

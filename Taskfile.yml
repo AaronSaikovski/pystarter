@@ -1,0 +1,144 @@
+# MIT License
+
+# # Copyright (c) 2024 Aaron Saikovski
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# https://taskfile.dev
+
+version: "3"
+
+#ENV VARS
+env:
+  PROJECT_PYTHON_VER: ">=3.12,<3.13"
+  PROJECT_NAME: "pystarter"
+  PROJECT_DESC: "a sample python project"
+  PROJECT_AUTHOR: "A User <auser@someorg.com>"
+  PROJECT_VERSION: "1.1.0"
+  PROJECT_LICENSE: "MIT"
+  MAIN_SRC_DIR: "./src/"
+  ENV: dev
+
+###############################################################################
+
+tasks:
+  ## create - Inits the poetry virtual environment and installs baseline packages
+  create:
+    desc: "Inits the poetry virtual environment and installs baseline packages."
+    cmds:
+      - poetry config virtualenvs.in-project true
+      - poetry init --name="$PROJECT_NAME" --description="$PROJECT_DESC" --author="$PROJECT_AUTHOR" --python="$PROJECT_PYTHON_VER" --license="$PROJECT_LICENSE" --no-interaction
+      - poetry env use python3.12
+
+  ###########################################################################
+
+  ## deps - Install the dependencies
+  deps:
+    desc: "Install the dependencies."
+    cmds:
+      - poetry add pytest pytest-cov black ruff bandit pyinstaller --group dev
+      - poetry update
+
+  ###########################################################################
+
+  ## activate - Activates the virtual environment
+  activate:
+    desc: "Activates the virtual environment."
+    cmds:
+      - . ./.venv/bin/activate
+
+  ###########################################################################
+
+  ## install - installs the poetry environment with dependencies
+  install:
+    desc: "installs the poetry environment with dependencies."
+    cmds:
+      - poetry install
+
+  ###########################################################################
+
+  ## run - Run the script main.py
+  run:
+    desc: "Run the script main.py"
+    deps: [activate]
+    cmds:
+      - poetry run python main.py
+
+  ###########################################################################
+
+  ## clean - Cleans the environment, Overwrites the pyproject.toml file
+  clean:
+    desc: "Cleans the environment, Overwrites the pyproject.toml file"
+    cmds:
+      - find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+      - rm -rf .venv
+      - rm -rf venv
+      - rm -rf .pytest_cache
+      - rm -rf ./dist
+      - rm -rf ./build
+      - rm -rf .ruff_cache
+      - rm -rf .mypy_cache
+      - rm -rf poetry.lock
+      - rm -rf main.spec
+      - cat pyproject_base.toml > pyproject.toml
+
+  #############################################################################
+
+  ## test - Tests the project
+  test:
+    desc: "Tests the project."
+    deps: [activate]
+    cmds:
+      - poetry run python -m pytest tests
+
+  ###########################################################################
+
+  ## update - updates dependency versions
+  update:
+    desc: "updates dependency versions"
+    deps: [activate]
+    cmds:
+      - poetry update -v
+
+  ###########################################################################
+
+  ## lint - Lints the project using ruff --fix
+  lint:
+    desc: "Lints the project using ruff --fix"
+    deps: [activate]
+    cmds:
+      - poetry run ruff check . --fix
+
+  ###########################################################################
+
+  ## vulncheck - Checks for vulnerabilities in the project
+  vulncheck:
+    desc: " Checks for vulnerabilities in the project"
+    cmds:
+      - poetry run bandit -r .
+
+  ###########################################################################
+
+  ## release - uses pyinstaller to package your Python application into a single package
+  release:
+    desc: "uses pyinstaller to package your Python application into a single package"
+    deps: [activate]
+    cmds:
+      - poetry run pyinstaller main.py
+###############################################################################
