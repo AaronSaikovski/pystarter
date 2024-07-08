@@ -38,6 +38,13 @@ env:
 ###############################################################################
 
 tasks:
+  ## default - Default cmd - create
+  default:
+    deps: [create]
+    desc: "Call Create as default cmd."
+
+  ###########################################################################
+
   ## create - Inits the poetry virtual environment and installs baseline packages
   create:
     desc: "Inits the poetry virtual environment and installs baseline packages."
