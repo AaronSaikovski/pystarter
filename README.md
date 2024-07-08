@@ -1,6 +1,6 @@
 <div align="center">
 
-# Python Starter Project Boilerplate Template
+# Python Starter Project Boilerplate Template - v1.1.0
 
 A Python boilerplate starter project template to setup a baseline Python project for you to get started.
 
@@ -15,23 +15,45 @@ This has been recently updated to use the awesome [Poetry](https://python-poetry
 
 Click the [Use this template](https://github.com/AaronSaikovski/pystarter/generate) button at the top of this project's GitHub page to get started.
 
-## Prequisites
+## Software Requirements:
 
 - Python v3.10 or higher needs to be installed - https://www.python.org/
 - Poetry v1.5.1 or higher needs to be installed - https://python-poetry.org/docs/#installation
+- - [Taskfile](https://taskfile.dev/) to run the build chain commands listed below.
 
-## Setup
+## Installation:
 
-The `Makefile` contains all the steps to get going - simple run `make help` to get more information.
+The toolchain is driven by using [Taskfile](https://taskfile.dev/) and all commands are managed via the file `Taskfile.yml`
 
-1. Run `make create` to create and install the poetry environment. This will configure and setup the base poetry environment to get started and will install the base packages.
-2. Ensure your Python interpreter is set to `.venv:poetry` in Visual studio code.
-3. Run `make activate` to activate the virtual environment.
-4. Run `make run` to run `main.py` in your root directory.
-5. Run `make test` to execute the unit tests in the `tests` folder.
-6. Run `make lint` to run the [ruff].(https://github.com/astral-sh/ruff) linting tool and make fixes.
-7. Run `make clean` to clean out the project and reset it to a base setup. **This process will overwrite the pyproject.toml file**
-8. Run `make installer` to build the project using [Pyinstaller](https://pyinstaller.org/).
+The list of commands is as follows:
+
+```bash
+* activate:        Activates the virtual environment.
+* clean:           Cleans the environment, Overwrites the pyproject.toml file
+* create:          Inits the poetry virtual environment and installs baseline packages.
+* deps:            Install the dependencies.
+* install:         installs the poetry environment with dependencies.
+* lint:            Lints the project using ruff --fix
+* release:         uses pyinstaller to package your Python application into a single package
+* run:             Run the script main.py
+* test:            Tests the project.
+* update:          updates dependency versions
+* vulncheck:       Checks for vulnerabilities in the project
+```
+
+Execute using the taskfile utility:
+
+```bash
+task <command_from_above_list>
+```
+
+To get started type,
+
+- `task create` - to create a poetry virtual environment.
+- `task deps` - to fetch and update all dependencies.
+- `task activate` - to activate the virtual environment.
+- `task build` - to build debug version for your target environment architecture.
+- `task release` - Builds a release version for your target environment architecture - outputs to /bin folder.
 
 ## Attribution
 

@@ -16,7 +16,7 @@ A longer paragraph description of your project goes here.
 
 ## Install
 
-````bash
+```bash
 * activate:        Activates the virtual environment.
 * clean:           Cleans the environment, Overwrites the pyproject.toml file
 * create:          Inits the poetry virtual environment and installs baseline packages.
@@ -28,6 +28,7 @@ A longer paragraph description of your project goes here.
 * test:            Tests the project.
 * update:          updates dependency versions
 * vulncheck:        Checks for vulnerabilities in the project
+```
 
 ## Usage
 
@@ -35,7 +36,7 @@ Usage instructions go here.
 
 ```bash
 venv/bin/python my_script.py
-````
+```
 
 ## Development
 
