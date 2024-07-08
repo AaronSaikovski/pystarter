@@ -17,9 +17,9 @@ Click the [Use this template](https://github.com/AaronSaikovski/pystarter/genera
 
 ## Software Requirements:
 
-- Python v3.10 or higher needs to be installed - https://www.python.org/
-- Poetry v1.5.1 or higher needs to be installed - https://python-poetry.org/docs/#installation
-- - [Taskfile](https://taskfile.dev/) to run the build chain commands listed below.
+- [Python v3.12.x]()https://www.python.org/ or higher needs to be installed.
+- [Poetry v1.5.1]() or higher needs to be installed
+- [Taskfile](https://taskfile.dev/) to run the build chain commands listed below.
 
 ## Installation:
 
