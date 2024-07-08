@@ -50,13 +50,11 @@ Execute using the taskfile utility:
 task <command_from_above_list>
 ```
 
-To get started type,
+To get started type:
 
-- `task create` - to create a poetry virtual environment.
-- `task deps` - to fetch and update all dependencies.
-- `task activate` - to activate the virtual environment.
-- `task build` - to build debug version for your target environment architecture.
-- `task release` - Builds a release version for your target environment architecture - outputs to /bin folder.
+- `task create deps activate` - this will create a new environment, fetch the dependencies and activate the virtual environment in one step.
+- `task run` - to run main.py in the root.
+- `task clean` - to delete everything in the virtual environment folder.
 
 ## Attribution
 
