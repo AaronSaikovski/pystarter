@@ -1,6 +1,7 @@
 """
 Profiling function helper - used to profile function performance
 """
+
 import functools
 import time
 

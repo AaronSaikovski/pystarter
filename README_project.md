@@ -16,13 +16,18 @@ A longer paragraph description of your project goes here.
 
 ## Install
 
-```bash
-# Install tool
-pip3 install project_name
-
-# Install locally
-make install
-```
+````bash
+* activate:        Activates the virtual environment.
+* clean:           Cleans the environment, Overwrites the pyproject.toml file
+* create:          Inits the poetry virtual environment and installs baseline packages.
+* deps:            Install the dependencies.
+* install:         installs the poetry environment with dependencies.
+* lint:            Lints the project using ruff --fix
+* release:         uses pyinstaller to package your Python application into a single package
+* run:             Run the script main.py
+* test:            Tests the project.
+* update:          updates dependency versions
+* vulncheck:        Checks for vulnerabilities in the project
 
 ## Usage
 
@@ -30,7 +35,7 @@ Usage instructions go here.
 
 ```bash
 venv/bin/python my_script.py
-```
+````
 
 ## Development
 
