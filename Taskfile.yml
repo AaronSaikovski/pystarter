@@ -26,7 +26,7 @@ version: "3"
 
 #ENV VARS
 env:
-  PROJECT_PYTHON_VER: ">=3.12,<3.13"
+  PROJECT_PYTHON_VER: ">=3.12,<3.14"
   PROJECT_NAME: "pystarter"
   PROJECT_DESC: "a sample python project"
   PROJECT_AUTHOR: "A User <auser@someorg.com>"
@@ -51,7 +51,7 @@ tasks:
     cmds:
       - poetry config virtualenvs.in-project true
       - poetry init --name="$PROJECT_NAME" --description="$PROJECT_DESC" --author="$PROJECT_AUTHOR" --python="$PROJECT_PYTHON_VER" --license="$PROJECT_LICENSE" --no-interaction
-      - poetry env use python3.12
+      - poetry env use python3.13
 
   ###########################################################################
 
@@ -83,7 +83,7 @@ tasks:
   ## run - Run the script main.py
   run:
     desc: "Run the script main.py"
-    deps: [activate]
+    #deps: [activate]
     cmds:
       - poetry run python main.py
 
