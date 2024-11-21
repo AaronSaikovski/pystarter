@@ -1,5 +1,5 @@
 # For more information, please refer to https://hub.docker.com/_/python
-FROM python:3.12.4-slim-bookworm
+FROM python:slim-bookworm
 
 run pip install --upgrade pip
 RUN pip install poetry 
