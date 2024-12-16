@@ -68,7 +68,7 @@ tasks:
   activate:
     desc: "Activates the virtual environment."
     cmds:
-      - . ./.venv/bin/activate
+      - poetry env use .\.venv\scripts\python.exe ##broken
 
   ###########################################################################
 
@@ -110,7 +110,7 @@ tasks:
   ## test - Tests the project
   test:
     desc: "Tests the project."
-    deps: [activate]
+    #deps: [activate]
     cmds:
       - poetry run python -m pytest tests
 
@@ -119,7 +119,7 @@ tasks:
   ## update - updates dependency versions
   update:
     desc: "updates dependency versions"
-    deps: [activate]
+    #deps: [activate]
     cmds:
       - poetry update -v
 
@@ -128,7 +128,7 @@ tasks:
   ## lint - Lints the project using ruff --fix
   lint:
     desc: "Lints the project using ruff --fix"
-    deps: [activate]
+    #deps: [activate]
     cmds:
       - poetry run ruff check . --fix
 

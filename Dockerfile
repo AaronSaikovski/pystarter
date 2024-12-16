@@ -1,29 +1,36 @@
-# For more information, please refer to https://hub.docker.com/_/python
-FROM python:3.12.4-slim-bookworm
+FROM python:3.13.1-slim
 
-run pip install --upgrade pip
-RUN pip install poetry 
+# Set environment variables for Poetry
+ENV POETRY_VERSION=1.6.1 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
+# Update and install required dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl \
+        build-essential \
+        libssl-dev \
+        libffi-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - \
+    && ln -s "$POETRY_HOME/bin/poetry" /usr/local/bin/poetry
 
+# Set the working directory
 WORKDIR /app
-COPY . /app
 
-#copy poetry files
-COPY ./pyproject.toml ./
-COPY ./poetry.lock ./
+# Copy the project files
+COPY pyproject.toml poetry.lock ./
 
-# Install poetry and project dependencies
-RUN poetry install --without dev
+# Install dependencies using Poetry
+RUN poetry install --no-root
 
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
+# Copy the rest of the application code
+COPY . .
 
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "./main.py"]
+# Specify the entry point (update as needed for your application)
+CMD ["poetry", "run", "python", "./main.py"]
