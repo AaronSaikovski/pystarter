@@ -1,0 +1,35 @@
+[project]
+name = "pystarter"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "aaronsaikovski", email = "asaikovski@outlook.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "bandit>=1.8.0",
+    "black>=24.10.0",
+    "isort>=5.13.2",
+    "pyinstaller>=6.11.1",
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.8.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.setuptools]
+packages = ["pystarter"]
+package-dir = {"" = "src"}
+include-package-data = true
+
+
+[project.scripts]
+pystarter = "pystarter:main"
+
+
+

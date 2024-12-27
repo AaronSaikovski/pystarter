@@ -24,16 +24,6 @@
 
 version: "3"
 
-#ENV VARS
-env:
-  PROJECT_PYTHON_VER: ">=3.12,<3.14"
-  PROJECT_NAME: "pystarter"
-  PROJECT_DESC: "a sample python project"
-  PROJECT_AUTHOR: "A User <auser@someorg.com>"
-  PROJECT_VERSION: "1.1.0"
-  PROJECT_LICENSE: "MIT"
-  MAIN_SRC_DIR: "./src/"
-  ENV: dev
 
 ###############################################################################
 
@@ -47,20 +37,20 @@ tasks:
 
   ## create - Inits the poetry virtual environment and installs baseline packages
   create:
-    desc: "Inits the poetry virtual environment and installs baseline packages."
+    desc: "Inits the python project using UV and creates and activates a new virtual environment."
     cmds:
-      - poetry config virtualenvs.in-project true
-      - poetry init --name="$PROJECT_NAME" --description="$PROJECT_DESC" --author="$PROJECT_AUTHOR" --python="$PROJECT_PYTHON_VER" --license="$PROJECT_LICENSE" --no-interaction
-      - poetry env use python3.13
+      - uv init
+      - uv venv
 
   ###########################################################################
 
   ## deps - Install the dependencies
   deps:
     desc: "Install the dependencies."
+    deps: [activate]
     cmds:
-      - poetry add pytest pytest-cov black ruff bandit pyinstaller --group dev
-      - poetry update
+      - uv add pytest pytest-cov isort black ruff bandit pyinstaller
+      - uv tool upgrade --all
 
   ###########################################################################
 
@@ -68,69 +58,60 @@ tasks:
   activate:
     desc: "Activates the virtual environment."
     cmds:
-      - poetry env use .\.venv\scripts\python.exe ##broken
-
-  ###########################################################################
-
-  ## install - installs the poetry environment with dependencies
-  install:
-    desc: "installs the poetry environment with dependencies."
-    cmds:
-      - poetry install
+      - .venv\\Scripts\\activate
 
   ###########################################################################
 
   ## run - Run the script main.py
   run:
     desc: "Run the script main.py"
-    #deps: [activate]
+    deps: [activate]
     cmds:
-      - poetry run python main.py
+      - uv run -m pystarter
 
   ###########################################################################
 
-  ## clean - Cleans the environment, Overwrites the pyproject.toml file
+  # clean - Cleans the environment, Overwrites the pyproject.toml file
   clean:
     desc: "Cleans the environment, Overwrites the pyproject.toml file"
     cmds:
-      - find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
-      - rm -rf .venv
-      - rm -rf venv
-      - rm -rf .pytest_cache
-      - rm -rf ./dist
-      - rm -rf ./build
-      - rm -rf .ruff_cache
-      - rm -rf .mypy_cache
-      - rm -rf poetry.lock
-      - rm -rf main.spec
-      - cat pyproject_base.toml > pyproject.toml
+      - cmd /c "rmdir /s /q .venv"
+      - cmd /c "rmdir /s /q .ruff_cache"
+      - cmd /c "rmdir /s /q .pytest_cache"
+      - cmd /c "del /q .python-version"
+      - cmd /c "del /q uv.lock"
+      - cmd /c "del /q pyproject.toml"
+
 
   #############################################################################
 
   ## test - Tests the project
   test:
     desc: "Tests the project."
-    #deps: [activate]
+    deps: [activate]
     cmds:
-      - poetry run python -m pytest tests
+      - uv tool run pytest
 
   ###########################################################################
 
   ## update - updates dependency versions
   update:
     desc: "updates dependency versions"
-    #deps: [activate]
+    deps: [activate]
     cmds:
-      - poetry update -v
+      - uv tool upgrade --all
 
   ###########################################################################
 
-  ## lint - Lints the project using ruff --fix
+  ## lint - Lints the project using ruff --fix and sorts imports using isort
   lint:
-    desc: "Lints the project using ruff --fix"
-    #deps: [activate]
+    desc: "Lints the project using ruff --fix and sorts imports"
+    deps: [activate]
     cmds:
-      - poetry run ruff check . --fix
+      - uv tool run isort .
+      #- uv tool run black .
+      - uv tool run ruff check . --fix
+     
 
   ###########################################################################
 
@@ -138,7 +119,7 @@ tasks:
   vulncheck:
     desc: "Checks for vulnerabilities in the project"
     cmds:
-      - poetry run bandit -r .
+      - uv tool run bandit -r .
 
   ###########################################################################
 
@@ -147,7 +128,7 @@ tasks:
     desc: "uses pyinstaller to package your Python application into a single package"
     deps: [activate]
     cmds:
-      - poetry run pyinstaller main.py
+      - uv tool run pyinstaller main.py
 
   ###############################################################################
 
