@@ -34,3 +34,5 @@ COPY . .
 
 # Specify the entry point (update as needed for your application)
 CMD ["poetry", "run", "python", "./main.py"]
+
+
