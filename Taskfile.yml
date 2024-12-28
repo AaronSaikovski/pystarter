@@ -24,6 +24,10 @@
 
 version: "3"
 
+#ENV VARS
+env:
+  PROJECT_NAME: "pystarter"
+
 
 ###############################################################################
 
@@ -41,6 +45,8 @@ tasks:
     cmds:
       - uv init
       - uv venv
+      - task deps
+      - task activate
 
   ###########################################################################
 
@@ -67,7 +73,7 @@ tasks:
     desc: "Run the script main.py"
     deps: [activate]
     cmds:
-      - uv run -m pystarter
+      - uv run -m $PROJECT_NAME
 
   ###########################################################################
 
@@ -109,7 +115,7 @@ tasks:
     deps: [activate]
     cmds:
       - uv tool run isort .
-      #- uv tool run black .
+      - uv tool run black .
       - uv tool run ruff check . --fix
      
 
