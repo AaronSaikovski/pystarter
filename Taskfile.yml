@@ -47,6 +47,7 @@ tasks:
       - uv venv
       - task deps
       - task activate
+      - cmd /c "type pyproject_base.toml >> pyproject.toml || exit 0"
 
   ###########################################################################
 
