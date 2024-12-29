@@ -1,76 +1,60 @@
-# PyStarter
+<div align="center">
 
-PyStarter is a simple Python project template to help you kickstart your Python development. It includes basic project structure, setup, and configuration files to get you started quickly.
+# Python Starter Project Boilerplate Template - v3.0.0
 
-## Features
+A Python boilerplate starter project template to setup a baseline Python project for you to get started.
 
-- Basic project structure
-- Virtual environment setup
-- Dependency management with `requirements.txt`
-- Sample Python script
-- README template
+[![Build Status](https://github.com/AaronSaikovski/pystarter/workflows/build/badge.svg)](https://github.com/AaronSaikovski/pystarter/actions)
+[![Licence](https://img.shields.io/github/license/AaronSaikovski/pystarter)](LICENSE)
 
-## Project Structure
+</div>
+Python projects are tricky to setup correctly and as such the creation of this project came about. I hope you enjoy this and enjoy using it as much as I do.
+This has been recently updated to use the awesome UV tool packaging and dependency toolchain.
 
-```
-pystarter/
-├── .gitignore
-├── README.md
-├── requirements.txt
-├── src/
-│   └── main.py
-└── venv/
-```
+## Usage
 
-## Getting Started
+Click the [Use this template](https://github.com/AaronSaikovski/pystarter/generate) button at the top of this project's GitHub page to get started.
 
-### Prerequisites
+## Software Requirements:
 
-- Python 3.x installed on your machine
+- [Python v3.13.x](https://www.python.org/) or higher needs to be installed.
+- [UV](https://github.com/astral-sh/uv) or higher needs to be installed
+- [Taskfile](https://taskfile.dev/) to run the build chain commands listed below.
 
-### Setup
+## Installation:
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/pystarter.git
-    cd pystarter
-    ```
+The toolchain is driven by using [Taskfile](https://taskfile.dev/) and all commands are managed via the file `Taskfile.yml`
 
-2. Create a virtual environment:
-    ```sh
-    python -m venv venv
-    ```
+The list of commands is as follows:
 
-3. Activate the virtual environment:
-    - On Windows:
-        ```sh
-        .\venv\Scripts\activate
-        ```
-    - On macOS/Linux:
-        ```sh
-        source venv/bin/activate
-        ```
-
-4. Install dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-### Running the Project
-
-To run the sample script:
-```sh
-python src/main.py
+```bash
+* activate:           Activates the virtual environment.
+* clean:              Cleans the environment, deletes the environment.
+* create:             Inits the python project using UV and creates and activates a new virtual environment.
+* default:            Call Create as default cmd.
+* deps:               Install the dependencies.
+* docker-build:       builds a docker image based on the docker file
+* docker-run:         builds a docker image based on the docker file
+* lint:               Lints the project using ruff --fix and sorts imports
+* release:            uses pyinstaller to package your Python application into a single package
+* run:                Run the script main.py
+* test:               Tests the project.
+* update:             updates dependency versions
+* vulncheck:          Checks for vulnerabilities in the project
 ```
 
-## Contributing
+Execute using the taskfile utility:
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
+```bash
+task <command_from_above_list>
+```
 
-## License
+To get started type:
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- `task create` - this will create a new environment, fetch the dependencies and activate the virtual environment in one step.
+- `task run` - to run project in the src folder.
+- `task clean` - to delete everything - venv, deps etc.
 
-## Contact
+## Attribution
 
-For any questions or suggestions, please open an issue or contact the project maintainer.
+- original concept derived from here: https://github.com/Justintime50/python-template
