@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.setuptools]
+packages = ["pystarter"]
+package-dir = {"" = "src"}
+include-package-data = true
+
+
+[project.scripts]
+pystarter = "pystarter:main"

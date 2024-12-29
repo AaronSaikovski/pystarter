@@ -1,6 +1,6 @@
 <div align="center">
 
-# Python Starter Project Boilerplate Template - v3.0.0
+# Python Starter Project Boilerplate Template - v1.1.0
 
 A Python boilerplate starter project template to setup a baseline Python project for you to get started.
 
@@ -9,7 +9,7 @@ A Python boilerplate starter project template to setup a baseline Python project
 
 </div>
 Python projects are tricky to setup correctly and as such the creation of this project came about. I hope you enjoy this and enjoy using it as much as I do.
-This has been recently updated to use the awesome UV tool packaging and dependency toolchain.
+This has been recently updated to use the awesome [Poetry](https://python-poetry.org/) packaging and dependency toolchain.
 
 ## Usage
 
@@ -17,8 +17,8 @@ Click the [Use this template](https://github.com/AaronSaikovski/pystarter/genera
 
 ## Software Requirements:
 
-- [Python v3.13.x](https://www.python.org/) or higher needs to be installed.
-- [UV](https://github.com/astral-sh/uv) or higher needs to be installed
+- [Python v3.12.x]()https://www.python.org/ or higher needs to be installed.
+- [Poetry v1.5.1]() or higher needs to be installed
 - [Taskfile](https://taskfile.dev/) to run the build chain commands listed below.
 
 ## Installation:
@@ -29,13 +29,14 @@ The list of commands is as follows:
 
 ```bash
 * activate:           Activates the virtual environment.
-* clean:              Cleans the environment, deletes the environment.
-* create:             Inits the python project using UV and creates and activates a new virtual environment.
+* clean:              Cleans the environment, Overwrites the pyproject.toml file
+* create:             Inits the poetry virtual environment and installs baseline packages.
 * default:            Call Create as default cmd.
 * deps:               Install the dependencies.
 * docker-build:       builds a docker image based on the docker file
 * docker-run:         builds a docker image based on the docker file
-* lint:               Lints the project using ruff --fix and sorts imports
+* install:            installs the poetry environment with dependencies.
+* lint:               Lints the project using ruff --fix
 * release:            uses pyinstaller to package your Python application into a single package
 * run:                Run the script main.py
 * test:               Tests the project.
@@ -51,10 +52,11 @@ task <command_from_above_list>
 
 To get started type:
 
-- `task create` - this will create a new environment, fetch the dependencies and activate the virtual environment in one step.
-- `task run` - to run project in the src folder.
-- `task clean` - to delete everything - venv, deps etc.
+- `task create deps activate` - this will create a new environment, fetch the dependencies and activate the virtual environment in one step.
+- `task run` - to run main.py in the root.
+- `task clean` - to delete everything in the virtual environment folder.
 
 ## Attribution
 
+- Advanced poetry setup: https://testdriven.io/blog/python-project-workflow/
 - original concept derived from here: https://github.com/Justintime50/python-template
