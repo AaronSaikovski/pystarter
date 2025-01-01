@@ -12,3 +12,6 @@ include-package-data = true
 
 [project.scripts]
 pystarter = "pystarter:main"
+
+[tool.pip-tools]
+generate-hashes = true
