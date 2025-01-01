@@ -35,7 +35,7 @@ The list of commands is as follows:
 * deps:               Install the dependencies.
 * docker-build:       builds a docker image based on the docker file
 * docker-run:         builds a docker image based on the docker file
-* lint:               Lints the project using ruff --fix and sorts imports
+* lint:               Lints and type checks the project
 * release:            uses pyinstaller to package your Python application into a single package
 * run:                Run the script main.py
 * test:               Tests the project.

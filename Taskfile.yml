@@ -56,7 +56,7 @@ tasks:
     desc: "Install the dependencies."
     deps: [activate]
     cmds:
-      - uv add pytest pytest-cov isort black ruff bandit pyinstaller
+      - uv add pytest pytest-cov isort black ruff bandit pyinstaller mypy
       - uv tool upgrade --all
 
   ###########################################################################
@@ -112,14 +112,15 @@ tasks:
 
   ###########################################################################
 
-  ## lint - Lints the project using ruff --fix and sorts imports using isort
+  ## lint - Lints the project and type checks the project
   lint:
-    desc: "Lints the project using ruff --fix and sorts imports"
+    desc: "Lints the project and performs type checking"
     deps: [activate]
     cmds:
       - uv tool run isort .
-      - uv tool run black .
+      #- uv tool run black .
       - uv tool run ruff check . --fix
+      - uv tool run mypy --check-untyped-defs . 
      
 
   ###########################################################################
