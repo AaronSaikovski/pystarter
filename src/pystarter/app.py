@@ -39,7 +39,6 @@ import utils.profiling_helper as profiler
 
 
 @logging.log
-@profiler.profile_func
 def add_nums_test(num1: int, num2: int) -> int:
     """adds two numbers as a test
 
@@ -50,6 +49,7 @@ def add_nums_test(num1: int, num2: int) -> int:
     Returns:
         int: sum of numbers
     """
+    nums = num1 + num2
     return num1 + num2
 
 
