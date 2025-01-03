@@ -1,6 +1,6 @@
 # MIT License
 
-# # Copyright (c) 2024 Aaron Saikovski
+# Copyright (c) 2025 Aaron Saikovski
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ version: "3"
 #ENV VARS
 env:
   PROJECT_NAME: "pystarter"
-
+  PYTHON_VERSION: "3.13" #">=3.13,<3.13"
 
 ###############################################################################
 
@@ -43,7 +43,7 @@ tasks:
   create:
     desc: "Inits the python project using UV and creates and activates a new virtual environment."
     cmds:
-      - uv init
+      - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION
       - uv venv
       - task deps
       - task activate
@@ -82,15 +82,13 @@ tasks:
   clean:
     desc: "Cleans the environment, Overwrites the pyproject.toml file"
     cmds:
-        - cmd /c "rmdir /s /q .venv || exit 0"
-        - cmd /c "rmdir /s /q dist || exit 0"
-        - cmd /c "rmdir /s /q .ruff_cache || exit 0"
-        - cmd /c "rmdir /s /q .pytest_cache || exit 0"
-        - cmd /c "del /q .python-version || exit 0"
-        - cmd /c "del /q uv.lock || exit 0"
-        - cmd /c "del /q pyproject.toml || exit 0"
-
-
+      - cmd /c "rmdir /s /q .venv || exit 0"
+      - cmd /c "rmdir /s /q dist || exit 0"
+      - cmd /c "rmdir /s /q .ruff_cache || exit 0"
+      - cmd /c "rmdir /s /q .pytest_cache || exit 0"
+      - cmd /c "del /q .python-version || exit 0"
+      - cmd /c "del /q uv.lock || exit 0"
+      - cmd /c "del /q pyproject.toml || exit 0"
 
   #############################################################################
 
@@ -120,8 +118,7 @@ tasks:
       - uv tool run isort .
       #- uv tool run black .
       - uv tool run ruff check . --fix
-      - uv tool run mypy --check-untyped-defs . 
-     
+      - uv tool run mypy --check-untyped-defs .
 
   ###########################################################################
 
