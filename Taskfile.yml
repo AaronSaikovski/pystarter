@@ -56,7 +56,7 @@ tasks:
     desc: "Install the dependencies."
     deps: [activate]
     cmds:
-      - uv add pytest pytest-cov isort black ruff bandit pyinstaller mypy
+      - uv add pytest pytest-cov isort black ruff bandit mypy colorama
       - uv tool upgrade --all
 
   ###########################################################################
