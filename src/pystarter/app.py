@@ -49,7 +49,6 @@ def add_nums_test(num1: int, num2: int) -> int:
     Returns:
         int: sum of numbers
     """
-    nums = num1 + num2
     return num1 + num2
 
 
