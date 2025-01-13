@@ -27,7 +27,9 @@
 Longer description of this module.
 
 """
+import os
 
+from dotenv import load_dotenv
 
 import sample_data.standardclass as standardclass
 import sample_package.sample_module as sample_module
@@ -35,6 +37,8 @@ import utils.console_helper as console
 import utils.logging_helper as logging
 import utils.profiling_helper as profiler
 
+load_dotenv()
+    
 # ******************************************************************************** #
 
 
@@ -82,6 +86,10 @@ def main():
     """
 
     console.print_ok_message("** This is the main method.** ")
+    
+    # Load from .env file
+    env_value = os.getenv("SOME_VALUE","no value set")
+    print(f"From .env file: {env_value}")
 
     nums_test = add_nums_test(50, 50)
     print(f"Adding nums: {nums_test}")
