@@ -1,4 +1,4 @@
-""" Standard console outputs with colours
+"""Standard console outputs with colours
 Provides a helper module for displaying output with colours.
 """
 

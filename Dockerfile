@@ -1,38 +1,59 @@
-FROM python:3.13.1-slim
+FROM python:3.12-slim
 
-# Set environment variables for Poetry
-ENV POETRY_VERSION=1.6.1 \
-    POETRY_HOME=/opt/poetry \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1
 
-# Update and install required dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        curl \
-        build-essential \
-        libssl-dev \
-        libffi-dev \
+
+# Install system dependencies required by Playwright
+RUN apt-get update && apt-get install -y \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdrm2 \
+    libgbm1 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libasound2 \
+    libpangocairo-1.0-0 \
+    libpango-1.0-0 \
+    libx11-xcb1 \
+    libxcursor1 \
+    libxfixes3 \
+    libxrender1 \
+    libxtst6 \
+    wget \
+    libsqlite3-dev \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libffi-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 - \
-    && ln -s "$POETRY_HOME/bin/poetry" /usr/local/bin/poetry
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PIP_NO_CACHE_DIR=1
+
+################################################
+#Environment Variables
+ENV SOME_VAR="abc123"
+################################################
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the project files
-COPY pyproject.toml poetry.lock ./
+# Install dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies using Poetry
-RUN poetry install --no-root
 
-# Copy the rest of the application code
-COPY . .
+# Copy the entire source code
+COPY ./src /app/src
 
-# Specify the entry point (update as needed for your application)
-CMD ["poetry", "run", "python", "./main.py"]
+# Set the entry point to your main script in the src folder
+ENTRYPOINT ["python", "src/main.py"]
 
 

@@ -22,23 +22,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" Short description of this Python module.
+"""Short description of this Python module.
 
 Longer description of this module.
 
 """
+
 import os
+import uuid
 
 from dotenv import load_dotenv
 
-import sample_data.standardclass as standardclass
+import pystarter.sample_data.standardclass as standardclass
+import pystarter.utils.console_helper as console
+import pystarter.utils.logging_helper as logging
+import pystarter.utils.profiling_helper as profiler
 import sample_package.sample_module as sample_module
-import utils.console_helper as console
-import utils.logging_helper as logging
-import utils.profiling_helper as profiler
+from pystarter.utils.logging_factory import get_logger
 
 load_dotenv()
-    
+
 # ******************************************************************************** #
 
 
@@ -85,10 +88,17 @@ def main():
 
     """
 
+    # structured logging
+    context = {
+        "request_id": str(uuid.uuid4()),  # Random per execution
+    }
+    log = get_logger(context)
+    log.info("*** App Start ***")
+
     console.print_ok_message("** This is the main method.** ")
-    
+
     # Load from .env file
-    env_value = os.getenv("SOME_VALUE","no value set")
+    env_value = os.getenv("SOME_VALUE", "no value set")
     print(f"From .env file: {env_value}")
 
     nums_test = add_nums_test(50, 50)

@@ -1,6 +1,6 @@
 <div align="center">
 
-# Python Starter Project Boilerplate Template - v3.0.0
+# Python Starter Project Boilerplate Template - v3.0.1
 
 A Python boilerplate starter project template to setup a baseline Python project for you to get started.
 
