@@ -43,7 +43,7 @@ tasks:
   create:
     desc: "Inits the python project using UV and creates and activates a new virtual environment."
     cmds:
-      - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION
+      - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION --name $PROJECT_NAME
       - uv venv
       - task deps
       - task activate
