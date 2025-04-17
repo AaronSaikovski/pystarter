@@ -53,7 +53,7 @@ tasks:
 
   ###########################################################################
 
-  ## deps - Install the dependencies
+  ## deps - Install the dependencies.
   deps:
     desc: "Install the dependencies."
     deps: [activate]
@@ -64,7 +64,7 @@ tasks:
 
   ###########################################################################
 
-  ## activate - Activates the virtual environment
+  ## activate - Activates the virtual environment.
   activate:
     desc: "Activates the virtual environment."
     cmds:
@@ -72,18 +72,18 @@ tasks:
 
   ###########################################################################
 
-  ## run - Run the script main.py
+  ## run - Run the script main.py.
   run:
-    desc: "Run the script main.py"
+    desc: "Run the script main.py."
     deps: [activate]
     cmds:
       - uv run -m $PROJECT_NAME
 
   ###########################################################################
 
-  # clean - Cleans the environment, Overwrites the pyproject.toml file
+  # clean - Cleans the environment, Overwrites the pyproject.toml file.
   clean:
-    desc: "Cleans the environment, Overwrites the pyproject.toml file"
+    desc: "Cleans the environment, Overwrites the pyproject.toml file."
     cmds:
       - cmd /c "rmdir /s /q .venv || exit 0"
       - cmd /c "rmdir /s /q .mypy_cache || exit 0"
@@ -97,7 +97,7 @@ tasks:
 
   #############################################################################
 
-  ## test - Tests the project
+  ## test - Tests the project.
   test:
     desc: "Tests the project."
     deps: [activate]
@@ -106,18 +106,18 @@ tasks:
 
   ###########################################################################
 
-  ## update - updates dependency versions
+  ## update - updates dependency versions.
   update:
-    desc: "updates dependency versions"
+    desc: "updates dependency versions."
     deps: [activate]
     cmds:
       - uv tool upgrade --all
 
   ###########################################################################
 
-  ## lint - Lints the project and type checks the project
+  ## lint - Lints the project and type checks the project.
   lint:
-    desc: "Lints the project and performs type checking"
+    desc: "Lints the project and performs type checking."
     deps: [activate]
     cmds:
       - uv tool run isort .
@@ -127,26 +127,27 @@ tasks:
 
   ###########################################################################
 
-  ## vulncheck - Checks for vulnerabilities in the project
-  vulncheck:
-    desc: "Checks for vulnerabilities in the project"
+  ## seccheck - Checks for vulnerabilities in the project.
+  seccheck:
+    desc: "Checks for vulnerabilities in the project."
     cmds:
       - uv tool run bandit -r .
 
   ###########################################################################
 
-  ## release - uses pyinstaller to package your Python application into a single package
-  release:
-    desc: "uses pyinstaller to package your Python application into a single package"
+  ## build - uses uv build to package your Python application into a single package.
+  build:
+    desc: "uses uv build to package your Python application into a single package."
     deps: [activate]
     cmds:
-      - uv tool run pyinstaller main.py
+      - uv build
+
 
   ###########################################################################
 
-  ## reqs - Lock dependencies declared in a pyproject.toml to requirements.txt
+  ## reqs - Lock dependencies declared in a pyproject.toml to requirements.txt.
   reqs:
-    desc: "Lock dependencies declared in a pyproject.toml to requirements.txt"
+    desc: "Lock dependencies declared in a pyproject.toml to requirements.txt."
     deps: [activate]
     cmds:
       - cmd /c "del /q requirements.txt || exit 0"
@@ -154,18 +155,18 @@ tasks:
 
   ###############################################################################
 
-  ## docker-build - builds a docker image based on the docker file
+  ## docker-build - builds a docker image based on the docker file.
   docker-build:
-    desc: "builds a docker image based on the docker file"
+    desc: "builds a docker image based on the docker fil.e"
     deps: [deps]
     cmds:
       - docker build --platform linux/arm64 -t $PROJECT_NAME:latest .
 
   ###############################################################################
 
-  ## docker-run - runs the docker container
+  ## docker-run - runs the docker container.
   docker-run:
-    desc: "builds a docker image based on the docker file"
+    desc: "builds a docker image based on the docker file."
     #deps: [docker-build]
     cmds:
       - docker run $PROJECT_NAME:latest

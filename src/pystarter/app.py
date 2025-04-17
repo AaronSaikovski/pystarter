@@ -109,6 +109,8 @@ def main():
 
     print(f"From module: {sample_module.sample_function()}")
 
+    log.info("*** App End ***")
+
 
 # ******************************************************************************** #
 

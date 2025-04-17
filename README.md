@@ -29,18 +29,19 @@ The list of commands is as follows:
 
 ```bash
 * activate:           Activates the virtual environment.
-* clean:              Cleans the environment, deletes the environment.
+* build:              uses uv build to package your Python application into a single package.
+* clean:              Cleans the environment, Overwrites the pyproject.toml file.
 * create:             Inits the python project using UV and creates and activates a new virtual environment.
 * default:            Call Create as default cmd.
 * deps:               Install the dependencies.
-* docker-build:       builds a docker image based on the docker file
-* docker-run:         builds a docker image based on the docker file
-* lint:               Lints and type checks the project
-* release:            uses pyinstaller to package your Python application into a single package
-* run:                Run the script main.py
+* docker-build:       builds a docker image based on the docker fil.e
+* docker-run:         builds a docker image based on the docker file.
+* lint:               Lints the project and performs type checking.
+* reqs:               Lock dependencies declared in a pyproject.toml to requirements.txt.
+* run:                Run the script main.py.
+* seccheck:           Checks for vulnerabilities in the project.
 * test:               Tests the project.
-* update:             updates dependency versions
-* vulncheck:          Checks for vulnerabilities in the project
+* update:             updates dependency versions.
 ```
 
 Execute using the taskfile utility:
