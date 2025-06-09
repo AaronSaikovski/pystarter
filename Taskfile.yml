@@ -58,8 +58,10 @@ tasks:
     desc: "Install the dependencies."
     deps: [activate]
     cmds:
-      - uv add pytest isort ruff bandit mypy python-dotenv aiofiles types-aiofiles
-      - uv add nest_asyncio structlog pydantic
+      # - uv add pytest isort ruff bandit mypy python-dotenv aiofiles types-aiofiles
+      # - uv add nest_asyncio structlog pydantic
+      # - uv tool upgrade --all
+      - uv add -r requirements.txt
       - uv tool upgrade --all
 
   ###########################################################################
