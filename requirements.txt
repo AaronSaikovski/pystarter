@@ -2,67 +2,114 @@
 #    uv pip compile pyproject.toml -o requirements.txt
 aiofiles==24.1.0
     # via pystarter (pyproject.toml)
+altgraph==0.17.4
+    # via pyinstaller
 annotated-types==0.7.0
-    # via pydantic
+    # via
+    #   pystarter (pyproject.toml)
+    #   pydantic
 bandit==1.8.3
     # via pystarter (pyproject.toml)
 colorama==0.4.6
     # via
+    #   pystarter (pyproject.toml)
     #   bandit
     #   pytest
 iniconfig==2.1.0
-    # via pytest
+    # via
+    #   pystarter (pyproject.toml)
+    #   pytest
 isort==6.0.1
     # via pystarter (pyproject.toml)
 markdown-it-py==3.0.0
-    # via rich
+    # via
+    #   pystarter (pyproject.toml)
+    #   rich
 mdurl==0.1.2
-    # via markdown-it-py
+    # via
+    #   pystarter (pyproject.toml)
+    #   markdown-it-py
 mypy==1.16.0
     # via pystarter (pyproject.toml)
 mypy-extensions==1.1.0
-    # via mypy
+    # via
+    #   pystarter (pyproject.toml)
+    #   mypy
 nest-asyncio==1.6.0
     # via pystarter (pyproject.toml)
 packaging==25.0
-    # via pytest
+    # via
+    #   pystarter (pyproject.toml)
+    #   pyinstaller
+    #   pyinstaller-hooks-contrib
+    #   pytest
 pathspec==0.12.1
-    # via mypy
+    # via
+    #   pystarter (pyproject.toml)
+    #   mypy
 pbr==6.1.1
-    # via stevedore
+    # via
+    #   pystarter (pyproject.toml)
+    #   stevedore
+pefile==2023.2.7
+    # via pyinstaller
 pluggy==1.6.0
-    # via pytest
+    # via
+    #   pystarter (pyproject.toml)
+    #   pytest
 pydantic==2.11.5
     # via pystarter (pyproject.toml)
 pydantic-core==2.33.2
-    # via pydantic
+    # via
+    #   pystarter (pyproject.toml)
+    #   pydantic
 pygments==2.19.1
     # via
+    #   pystarter (pyproject.toml)
     #   pytest
     #   rich
+pyinstaller==6.14.1
+    # via pystarter (pyproject.toml)
+pyinstaller-hooks-contrib==2025.5
+    # via pyinstaller
 pytest==8.4.0
     # via pystarter (pyproject.toml)
 python-dotenv==1.1.0
     # via pystarter (pyproject.toml)
+pywin32-ctypes==0.2.3
+    # via pyinstaller
 pyyaml==6.0.2
-    # via bandit
+    # via
+    #   pystarter (pyproject.toml)
+    #   bandit
 rich==14.0.0
-    # via bandit
+    # via
+    #   pystarter (pyproject.toml)
+    #   bandit
 ruff==0.11.13
     # via pystarter (pyproject.toml)
 setuptools==80.9.0
-    # via pbr
+    # via
+    #   pystarter (pyproject.toml)
+    #   pbr
+    #   pyinstaller
+    #   pyinstaller-hooks-contrib
 stevedore==5.4.1
-    # via bandit
+    # via
+    #   pystarter (pyproject.toml)
+    #   bandit
 structlog==25.4.0
     # via pystarter (pyproject.toml)
 types-aiofiles==24.1.0.20250606
     # via pystarter (pyproject.toml)
 typing-extensions==4.14.0
     # via
+    #   pystarter (pyproject.toml)
     #   mypy
     #   pydantic
     #   pydantic-core
     #   typing-inspection
 typing-inspection==0.4.1
-    # via pydantic
+    # via
+    #   pystarter (pyproject.toml)
+    #   pydantic

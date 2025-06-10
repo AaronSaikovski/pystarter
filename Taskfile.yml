@@ -174,3 +174,13 @@ tasks:
       - docker run $PROJECT_NAME:latest
 
   ###############################################################################
+
+
+  ## dist - Executes pyinstaller for creating a self contained exe.
+  dist:
+    desc: "Runs Pyinstaller to create a self-contained executable."
+    deps: [activate]
+    cmds:
+      - uv run pyinstaller src/$PROJECT_NAME/__main__.py --onefile  --name $PROJECT_NAME --clean
+
+  ###############################################################################

@@ -15,3 +15,10 @@ pystarter = "pystarter:main"
 
 [tool.pip-tools]
 generate-hashes = true
+
+
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pystarter.version.VERSION"}
+readme = {file = ["README.md"]}
