@@ -39,54 +39,22 @@ tasks:
 
   ###########################################################################
 
-  ## create - Inits the poetry virtual environment and installs baseline packages
+  ## create - Inits the python project using UV and creates and activates a new virtual environment.
   create:
     desc: "Inits the python project using UV and creates and activates a new virtual environment."
     cmds:
-      - task: create-windows
-        vars: __UNIX
-      - task: create-unix
-        vars: __WIN
-
-  create-windows:
-    silent: true
-    cmds:
       - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION --name $PROJECT_NAME
       - uv venv
-      - task: deps-windows
-      - uv run python -c "if not (p := '.venv\\Scripts\\activate.ps1').exists(): raise SystemExit(1)"
-      - "$content = Get-Content pyproject_base.toml; Set-Content -Path pyproject.toml -Value (Get-Content pyproject.toml -Raw) + [Environment]::NewLine + $content"
-      - rm -f hello.py main.py
-
-  create-unix:
-    silent: true
-    cmds:
-      - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION --name $PROJECT_NAME
-      - uv venv
-      - task: deps-unix
-      - task: activate
+      - task: deps
       - cat pyproject_base.toml >> pyproject.toml
       - rm -f hello.py main.py
+      - uvx pyrefly init
 
   ###########################################################################
 
   ## deps - Install the dependencies.
   deps:
     desc: "Install the dependencies."
-    cmds:
-      - task: deps-windows
-        vars: __UNIX
-      - task: deps-unix
-        vars: __WIN
-
-  deps-windows:
-    silent: true
-    cmds:
-      - uv add -r requirements.txt
-      - uv tool upgrade --all
-
-  deps-unix:
-    silent: true
     cmds:
       - uv add -r requirements.txt
       - uv tool upgrade --all
@@ -96,7 +64,6 @@ tasks:
   ## activate - Activates the virtual environment.
   activate:
     desc: "Activates the virtual environment."
-    silent: true
     cmds:
       - |
         if [ -f .venv/bin/activate ]; then
@@ -114,19 +81,6 @@ tasks:
   run:
     desc: "Run the script main.py."
     cmds:
-      - task: run-windows
-        vars: __UNIX
-      - task: run-unix
-        vars: __WIN
-
-  run-windows:
-    silent: true
-    cmds:
-      - uv run python -m pystarter
-
-  run-unix:
-    silent: true
-    cmds:
       - uv run -m pystarter
 
   ###########################################################################
@@ -134,21 +88,6 @@ tasks:
   # clean - Cleans the environment, Overwrites the pyproject.toml file.
   clean:
     desc: "Cleans the environment, Overwrites the pyproject.toml file."
-    cmds:
-      - task: clean-windows
-        vars: __UNIX
-      - task: clean-unix
-        vars: __WIN
-
-  clean-windows:
-    silent: true
-    cmds:
-      - Remove-Item -Recurse -Force .venv, .mypy_cache, dist, .ruff_cache, .pytest_cache -ErrorAction SilentlyContinue
-      - Get-ChildItem -Recurse -Directory -Name __pycache__ | ForEach-Object { Remove-Item -Recurse -Force $_ -ErrorAction SilentlyContinue }
-      - rm -f .python-version uv.lock pyproject.toml
-
-  clean-unix:
-    silent: true
     cmds:
       - rm -rf .venv .mypy_cache dist .ruff_cache .pytest_cache
       - find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
@@ -160,7 +99,8 @@ tasks:
   test:
     desc: "Tests the project."
     cmds:
-      - uv tool run pytest
+      - uv add -r requirements.txt
+      - uv run pytest
 
   ###########################################################################
 
@@ -180,6 +120,7 @@ tasks:
       - uv tool run ruff check . --fix
       - uv tool run ruff format .
       - uv tool run mypy --check-untyped-defs --ignore-missing-imports .
+      - uvx pyrefly check --summarize-errors
 
   ###########################################################################
 
@@ -187,7 +128,7 @@ tasks:
   seccheck:
     desc: "Checks for vulnerabilities in the project."
     cmds:
-      - uv tool run bandit -r .
+      - uv tool run bandit -r src tests --exit-zero
 
   ###########################################################################
 
@@ -203,20 +144,6 @@ tasks:
   reqs:
     desc: "Lock dependencies declared in a pyproject.toml to requirements.txt."
     cmds:
-      - task: reqs-windows
-        vars: __UNIX
-      - task: reqs-unix
-        vars: __WIN
-
-  reqs-windows:
-    silent: true
-    cmds:
-      - rm -f requirements.txt
-      - uv pip compile pyproject.toml -o requirements.txt
-
-  reqs-unix:
-    silent: true
-    cmds:
       - rm -f requirements.txt
       - uv pip compile pyproject.toml -o requirements.txt
 
@@ -225,6 +152,7 @@ tasks:
   ## docker-build - builds a docker image based on the docker file.
   docker-build:
     desc: "builds a docker image based on the docker file."
+    deps: [deps]
     cmds:
       - docker build --platform linux/arm64 -t $PROJECT_NAME:latest .
 
@@ -233,6 +161,7 @@ tasks:
   ## docker-run - runs the docker container.
   docker-run:
     desc: "runs the docker container."
+    #deps: [docker-build]
     cmds:
       - docker run $PROJECT_NAME:latest
 
@@ -241,19 +170,6 @@ tasks:
   ## dist - Executes pyinstaller for creating a self contained exe.
   dist:
     desc: "Runs Pyinstaller to create a self-contained executable."
-    cmds:
-      - task: dist-windows
-        vars: __UNIX
-      - task: dist-unix
-        vars: __WIN
-
-  dist-windows:
-    silent: true
-    cmds:
-      - uv run pyinstaller src\$PROJECT_NAME\__main__.py --onefile --name $PROJECT_NAME --clean
-
-  dist-unix:
-    silent: true
     cmds:
       - uv run pyinstaller src/$PROJECT_NAME/__main__.py --onefile --name $PROJECT_NAME --clean
 

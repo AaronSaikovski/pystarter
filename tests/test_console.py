@@ -1,4 +1,4 @@
-import utils.console_helper as ch
+from pystarter.utils import console_helper as ch
 
 # ******************************************************************************** #
 

@@ -3,7 +3,10 @@
 aiofiles==24.1.0
     # via pystarter (pyproject.toml)
 altgraph==0.17.4
-    # via pyinstaller
+    # via
+    #   pystarter (pyproject.toml)
+    #   macholib
+    #   pyinstaller
 annotated-types==0.7.0
     # via
     #   pystarter (pyproject.toml)
@@ -11,16 +14,17 @@ annotated-types==0.7.0
 bandit==1.8.3
     # via pystarter (pyproject.toml)
 colorama==0.4.6
-    # via
-    #   pystarter (pyproject.toml)
-    #   bandit
-    #   pytest
+    # via pystarter (pyproject.toml)
 iniconfig==2.1.0
     # via
     #   pystarter (pyproject.toml)
     #   pytest
 isort==6.0.1
     # via pystarter (pyproject.toml)
+macholib==1.16.4
+    # via
+    #   pystarter (pyproject.toml)
+    #   pyinstaller
 markdown-it-py==3.0.0
     # via
     #   pystarter (pyproject.toml)
@@ -52,7 +56,7 @@ pbr==6.1.1
     #   pystarter (pyproject.toml)
     #   stevedore
 pefile==2023.2.7
-    # via pyinstaller
+    # via pystarter (pyproject.toml)
 pluggy==1.6.0
     # via
     #   pystarter (pyproject.toml)
@@ -71,13 +75,17 @@ pygments==2.19.1
 pyinstaller==6.14.1
     # via pystarter (pyproject.toml)
 pyinstaller-hooks-contrib==2025.5
-    # via pyinstaller
+    # via
+    #   pystarter (pyproject.toml)
+    #   pyinstaller
+pyrefly==1.0.0
+    # via pystarter (pyproject.toml)
 pytest==8.4.0
     # via pystarter (pyproject.toml)
 python-dotenv==1.1.0
     # via pystarter (pyproject.toml)
 pywin32-ctypes==0.2.3
-    # via pyinstaller
+    # via pystarter (pyproject.toml)
 pyyaml==6.0.2
     # via
     #   pystarter (pyproject.toml)

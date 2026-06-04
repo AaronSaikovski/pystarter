@@ -1,4 +1,4 @@
-import common.constants as constants
+from pystarter.common import constants
 
 # ******************************************************************************** #
 

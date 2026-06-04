@@ -1,4 +1,4 @@
-import sample_data.standardclass as standardclass
+from pystarter.sample_data import standardclass
 
 
 def test_class():

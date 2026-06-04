@@ -16,9 +16,10 @@ def profile_func(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start = time.time()
-        func(*args, **kwargs)
+        result = func(*args, **kwargs)
         end = time.time()
         print(f"Elapsed time: {(end - start) * 1000:.3f}ms")
+        return result
 
     return wrapper
 

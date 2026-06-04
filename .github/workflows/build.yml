@@ -3,38 +3,66 @@ name: build
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-version: ["3.13"]
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install poetry
-        run: |
-          pip install --upgrade pip
-          python -m pip install poetry==1.5.1
-      - name: Configure poetry
-        run: |
-          python -m poetry config virtualenvs.in-project true
-      # - name: Cache the virtualenv
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ./.venv
-      #     key: ${{ runner.os }}-venv-${{ hashFiles('**/poetry.lock') }}
-      # - name: Install dependencies
-      #   run: |
-      #     python -m poetry install
-      # - name: Lint check with ruff
-      #   run: |
-      #     python -m poetry run python -m pytest run ruff check . -q
-      # - name: Test with pytest
-      #   run: |
-      #     python -m poetry run python -m pytest
+          python-version: "3.13"
+      - name: Install UV
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+      - name: Install dependencies
+        run: uv add -r requirements.txt
+      - name: Run isort
+        run: uv tool run isort --check .
+      - name: Run ruff
+        run: uv tool run ruff check .
+      - name: Run mypy
+        run: uv tool run mypy --check-untyped-defs --ignore-missing-imports .
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install UV
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+      - name: Install dependencies
+        run: uv add -r requirements.txt
+      - name: Run tests
+        run: uv tool run pytest
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install UV
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+      - name: Build package
+        run: uv build
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

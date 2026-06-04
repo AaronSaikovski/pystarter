@@ -25,10 +25,10 @@ tests/                   # Pytest test suite
 
 | Command | Description |
 |---------|-------------|
-| `task create` | Initialize project: create venv, install deps from `requirements.txt`, activate venv |
-| `task deps` | Install dependencies (requires active venv) |
+| `task create` | Initialize project: create venv, install deps from `requirements.txt`, merge base config |
+| `task deps` | Install dependencies from `requirements.txt` |
 | `task run` | Run the app via `uv run -m pystarter` |
-| `task test` | Run tests via `uv tool run pytest` |
+| `task test` | Install deps and run tests via `uv run pytest` |
 | `task lint` | Run isort, ruff (check + format), mypy |
 | `task seccheck` | Run bandit for vulnerability scanning |
 | `task build` | Package with `uv build` |
@@ -43,8 +43,11 @@ The project uses `uv` for dependency management and virtual environments. Depend
 - **Logging**: Two logging systems coexist — `logging_helper.py` provides a simple `@log` decorator with standard `logging`, while `logging_factory.py` provides structured JSON logging via `structlog` with contextual binding (e.g., request_id).
 - **Entry point**: `main()` in `app.py` is the application entry. It loads `.env` via `python-dotenv`, uses structured logging, and demonstrates console output, class usage, and module imports.
 - **Build system**: Uses `hatchling` as the build backend. Version is dynamically read from `pystarter.version.VERSION` via `setuptools.dynamic`.
-- **Docker**: The Dockerfile is based on `python:3.12-slim` and installs system dependencies for GUI/headless apps (libgtk, libgbm, etc.). Entry point is `python src/main.py` (note: this should likely be `python src/pystarter/__main__.py`).
+- **Docker**: The Dockerfile is based on `python:3.13-slim` and installs system dependencies for GUI/headless apps (libgtk, libgbm, etc.). Entry point is `python -m pystarter`.
 
+## Linting Rules
+
+All code changes must pass the full lint chain: `isort`, `ruff check`, `ruff format`, and `mypy`, as well as all unit tests. Run `task lint` and `task test` before committing. The project uses ruff for linting and formatting.
 
 ## Workflow Orchestration
 

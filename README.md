@@ -1,61 +1,68 @@
 <div align="center">
 
-# Python Starter Project Boilerplate Template - v3.0.1
+# Python Starter Project Boilerplate Template
 
-A Python boilerplate starter project template to setup a baseline Python project for you to get started.
+A Python starter project template with a baseline project structure, dependency management via UV, linting, testing, Docker support, and PyInstaller packaging.
 
-[![Build Status](https://github.com/AaronSaikovski/pystarter/workflows/build/badge.svg)](https://github.com/AaronSaikovski/pystarter/actions)
-[![Licence](https://img.shields.io/github/license/AaronSaikovski/pystarter)](LICENSE)
+[![License](https://img.shields.io/github/license/AaronSaikovski/pystarter)](LICENSE)
+[![Build](https://github.com/AaronSaikovski/pystarter/actions/workflows/build.yml/badge.svg)](https://github.com/AaronSaikovski/pystarter/actions/workflows/build.yml)
 
 </div>
-Python projects are tricky to setup correctly and as such the creation of this project came about. I hope you enjoy this and enjoy using it as much as I do.
-This has been recently updated to use the awesome UV tool packaging and dependency toolchain.
+
+This project provides a ready-to-use Python 3.13 project structure with sensible defaults for development, testing, and deployment.
 
 ## Usage
 
 Click the [Use this template](https://github.com/AaronSaikovski/pystarter/generate) button at the top of this project's GitHub page to get started.
 
-## Software Requirements:
+## Requirements
 
-- [Python v3.13.x](https://www.python.org/) or higher needs to be installed.
-- [UV](https://github.com/astral-sh/uv) or higher needs to be installed
-- [Taskfile](https://taskfile.dev/) to run the build chain commands listed below.
+- [Python 3.13](https://www.python.org/) or higher
+- [UV](https://github.com/astral-sh/uv) — fast Python package installer and resolver
+- [Task](https://taskfile.dev/) — task runner for build commands
 
-## Installation:
+## Commands
 
-The toolchain is driven by using [Taskfile](https://taskfile.dev/) and all commands are managed via the file `Taskfile.yml`
+All commands are managed via `Taskfile.yml`:
 
-The list of commands is as follows:
+| Command | Description |
+| :--- | :--- |
+| `task create` | Initialize project: create venv, install deps, merge base config |
+| `task deps` | Install dependencies from `requirements.txt` |
+| `task run` | Run the app via `uv run -m pystarter` |
+| `task test` | Run tests via `pytest` |
+| `task lint` | Run isort, ruff (format + fix), mypy, and pyrefly |
+| `task seccheck` | Run bandit for vulnerability scanning (src + tests) |
+| `task build` | Package with `uv build` |
+| `task dist` | Create standalone executable with PyInstaller |
+| `task docker-build` | Build Docker image (linux/arm64) |
+| `task reqs` | Generate `requirements.txt` from `pyproject.toml` |
+| `task update` | Upgrade all installed tools |
+| `task clean` | Remove venv, caches, and generated files |
 
-```bash
-* activate:           Activates the virtual environment.
-* build:              uses uv build to package your Python application into a single package.
-* clean:              Cleans the environment, Overwrites the pyproject.toml file.
-* create:             Inits the python project using UV and creates and activates a new virtual environment.
-* default:            Call Create as default cmd.
-* deps:               Install the dependencies.
-* docker-build:       builds a docker image based on the docker fil.e
-* docker-run:         builds a docker image based on the docker file.
-* lint:               Lints the project and performs type checking.
-* reqs:               Lock dependencies declared in a pyproject.toml to requirements.txt.
-* run:                Run the script main.py.
-* seccheck:           Checks for vulnerabilities in the project.
-* test:               Tests the project.
-* update:             updates dependency versions.
-```
-
-Execute using the taskfile utility:
+Execute using the Task utility:
 
 ```bash
-task <command_from_above_list>
+task <command>
 ```
 
-To get started type:
+To get started:
 
-- `task create` - this will create a new environment, fetch the dependencies and activate the virtual environment in one step.
-- `task run` - to run project in the src folder.
-- `task clean` - to delete everything - venv, deps etc.
+- `task create` — initialize the project and install dependencies
+- `task run` — run the project
+- `task clean` — remove all generated files
 
-## Attribution
+## Project Structure
 
-- original concept derived from here: https://github.com/Justintime50/python-template
+```text
+src/pystarter/           # Main package
+  app.py                 # Entry point with main() function
+  __main__.py            # Module entry (uv run -m pystarter)
+  version.py             # Version and APP_NAME constants
+  common/                # Shared constants
+  data_models/           # Pydantic data models
+  sample_data/           # Sample data classes
+  utils/                 # Utilities: console, logging, file, profiling
+src/sample_package/      # Secondary sample package
+tests/                   # Pytest test suite
+```

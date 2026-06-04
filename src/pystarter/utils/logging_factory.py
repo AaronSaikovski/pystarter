@@ -2,7 +2,7 @@
 structured logging
 """
 
-from typing import Any
+from typing import Any, Optional
 
 import structlog
 
@@ -21,7 +21,7 @@ structlog.configure(
 # ******************************************************************************** #
 
 
-def get_logger(context: dict[Any, Any]):
+def get_logger(context: Optional[dict[Any, Any]]):
     """Logger factory
 
     Args:
