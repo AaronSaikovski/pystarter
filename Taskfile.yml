@@ -43,24 +43,51 @@ tasks:
   create:
     desc: "Inits the python project using UV and creates and activates a new virtual environment."
     cmds:
+      - task: create-windows
+        vars: __UNIX
+      - task: create-unix
+        vars: __WIN
+
+  create-windows:
+    silent: true
+    cmds:
       - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION --name $PROJECT_NAME
       - uv venv
-      - task deps
-      - task activate
-      - cmd /c "type pyproject_base.toml >> pyproject.toml || exit 0"
-      - cmd /c "del /q hello.py || exit 0"
-      - cmd /c "del /q main.py || exit 0"
+      - task: deps-windows
+      - uv run python -c "if not (p := '.venv\\Scripts\\activate.ps1').exists(): raise SystemExit(1)"
+      - "$content = Get-Content pyproject_base.toml; Set-Content -Path pyproject.toml -Value (Get-Content pyproject.toml -Raw) + [Environment]::NewLine + $content"
+      - rm -f hello.py main.py
+
+  create-unix:
+    silent: true
+    cmds:
+      - uv init --author-from auto --no-readme --color auto --python $PYTHON_VERSION --name $PROJECT_NAME
+      - uv venv
+      - task: deps-unix
+      - task: activate
+      - cat pyproject_base.toml >> pyproject.toml
+      - rm -f hello.py main.py
 
   ###########################################################################
 
   ## deps - Install the dependencies.
   deps:
     desc: "Install the dependencies."
-    deps: [activate]
     cmds:
-      # - uv add pytest isort ruff bandit mypy python-dotenv aiofiles types-aiofiles
-      # - uv add nest_asyncio structlog pydantic
-      # - uv tool upgrade --all
+      - task: deps-windows
+        vars: __UNIX
+      - task: deps-unix
+        vars: __WIN
+
+  deps-windows:
+    silent: true
+    cmds:
+      - uv add -r requirements.txt
+      - uv tool upgrade --all
+
+  deps-unix:
+    silent: true
+    cmds:
       - uv add -r requirements.txt
       - uv tool upgrade --all
 
@@ -69,17 +96,38 @@ tasks:
   ## activate - Activates the virtual environment.
   activate:
     desc: "Activates the virtual environment."
+    silent: true
     cmds:
-      - .venv\\Scripts\\activate
+      - |
+        if [ -f .venv/bin/activate ]; then
+          . .venv/bin/activate
+        elif [ -f .venv/Scripts/activate ]; then
+          . .venv/Scripts/activate
+        else
+          echo "No virtual environment found"
+          exit 1
+        fi
 
   ###########################################################################
 
   ## run - Run the script main.py.
   run:
     desc: "Run the script main.py."
-    deps: [activate]
     cmds:
-      - uv run -m $PROJECT_NAME
+      - task: run-windows
+        vars: __UNIX
+      - task: run-unix
+        vars: __WIN
+
+  run-windows:
+    silent: true
+    cmds:
+      - uv run python -m pystarter
+
+  run-unix:
+    silent: true
+    cmds:
+      - uv run -m pystarter
 
   ###########################################################################
 
@@ -87,22 +135,30 @@ tasks:
   clean:
     desc: "Cleans the environment, Overwrites the pyproject.toml file."
     cmds:
-      - cmd /c "rmdir /s /q .venv || exit 0"
-      - cmd /c "rmdir /s /q .mypy_cache || exit 0"
-      - cmd /c "rmdir /s /q dist || exit 0"
-      - cmd /c "rmdir /s /q .ruff_cache || exit 0"
-      - cmd /c "rmdir /s /q .pytest_cache || exit 0"
-      - powershell -Command "Get-ChildItem -Path . -Filter '__pycache__' -Recurse -Directory | Remove-Item -Recurse -Force"
-      - cmd /c "del /q .python-version || exit 0"
-      - cmd /c "del /q uv.lock || exit 0"
-      - cmd /c "del /q pyproject.toml || exit 0"
+      - task: clean-windows
+        vars: __UNIX
+      - task: clean-unix
+        vars: __WIN
+
+  clean-windows:
+    silent: true
+    cmds:
+      - Remove-Item -Recurse -Force .venv, .mypy_cache, dist, .ruff_cache, .pytest_cache -ErrorAction SilentlyContinue
+      - Get-ChildItem -Recurse -Directory -Name __pycache__ | ForEach-Object { Remove-Item -Recurse -Force $_ -ErrorAction SilentlyContinue }
+      - rm -f .python-version uv.lock pyproject.toml
+
+  clean-unix:
+    silent: true
+    cmds:
+      - rm -rf .venv .mypy_cache dist .ruff_cache .pytest_cache
+      - find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
+      - rm -f .python-version uv.lock pyproject.toml
 
   #############################################################################
 
   ## test - Tests the project.
   test:
     desc: "Tests the project."
-    deps: [activate]
     cmds:
       - uv tool run pytest
 
@@ -111,7 +167,6 @@ tasks:
   ## update - updates dependency versions.
   update:
     desc: "updates dependency versions."
-    deps: [activate]
     cmds:
       - uv tool upgrade --all
 
@@ -120,7 +175,6 @@ tasks:
   ## lint - Lints the project and type checks the project.
   lint:
     desc: "Lints the project and performs type checking."
-    deps: [activate]
     cmds:
       - uv tool run isort .
       - uv tool run ruff check . --fix
@@ -140,27 +194,37 @@ tasks:
   ## build - uses uv build to package your Python application into a single package.
   build:
     desc: "uses uv build to package your Python application into a single package."
-    deps: [activate]
     cmds:
       - uv build
-
 
   ###########################################################################
 
   ## reqs - Lock dependencies declared in a pyproject.toml to requirements.txt.
   reqs:
     desc: "Lock dependencies declared in a pyproject.toml to requirements.txt."
-    deps: [activate]
     cmds:
-      - cmd /c "del /q requirements.txt || exit 0"
+      - task: reqs-windows
+        vars: __UNIX
+      - task: reqs-unix
+        vars: __WIN
+
+  reqs-windows:
+    silent: true
+    cmds:
+      - rm -f requirements.txt
+      - uv pip compile pyproject.toml -o requirements.txt
+
+  reqs-unix:
+    silent: true
+    cmds:
+      - rm -f requirements.txt
       - uv pip compile pyproject.toml -o requirements.txt
 
   ###############################################################################
 
   ## docker-build - builds a docker image based on the docker file.
   docker-build:
-    desc: "builds a docker image based on the docker fil.e"
-    deps: [deps]
+    desc: "builds a docker image based on the docker file."
     cmds:
       - docker build --platform linux/arm64 -t $PROJECT_NAME:latest .
 
@@ -168,19 +232,29 @@ tasks:
 
   ## docker-run - runs the docker container.
   docker-run:
-    desc: "builds a docker image based on the docker file."
-    #deps: [docker-build]
+    desc: "runs the docker container."
     cmds:
       - docker run $PROJECT_NAME:latest
 
   ###############################################################################
 
-
   ## dist - Executes pyinstaller for creating a self contained exe.
   dist:
     desc: "Runs Pyinstaller to create a self-contained executable."
-    deps: [activate]
     cmds:
-      - uv run pyinstaller src/$PROJECT_NAME/__main__.py --onefile  --name $PROJECT_NAME --clean
+      - task: dist-windows
+        vars: __UNIX
+      - task: dist-unix
+        vars: __WIN
+
+  dist-windows:
+    silent: true
+    cmds:
+      - uv run pyinstaller src\$PROJECT_NAME\__main__.py --onefile --name $PROJECT_NAME --clean
+
+  dist-unix:
+    silent: true
+    cmds:
+      - uv run pyinstaller src/$PROJECT_NAME/__main__.py --onefile --name $PROJECT_NAME --clean
 
   ###############################################################################

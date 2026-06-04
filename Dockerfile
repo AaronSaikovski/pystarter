@@ -1,9 +1,7 @@
-FROM python:3.12-slim
-
-
+FROM python:3.13-slim
 
 # Install system dependencies required by Playwright
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
     libcups2 \
@@ -29,31 +27,27 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libcurl4-openssl-dev \
     libffi-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get purge -y && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PIP_NO_CACHE_DIR=1
 
-################################################
-#Environment Variables
-ENV SOME_VAR="abc123"
-################################################
-
 # Set the working directory
 WORKDIR /app
 
-# Install dependencies
+# Copy and install dependencies first for better layer caching
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-
 
 # Copy the entire source code
 COPY ./src /app/src
 
-# Set the entry point to your main script in the src folder
-ENTRYPOINT ["python", "src/main.py"]
+# Create non-root user and switch to it
+RUN useradd --create-home --shell /bin/bash appuser && chown -R appuser:appuser /app
+USER appuser
 
-
+# Set the entry point to your main script
+ENTRYPOINT ["python", "-m", "pystarter"]
