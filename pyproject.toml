@@ -1,0 +1,76 @@
+[project]
+name = "pystarter"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "AaronSaikovski", email = "asaikovski@outlook.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "aiofiles==24.1.0",
+    "altgraph==0.17.4",
+    "annotated-types==0.7.0",
+    "bandit==1.8.3",
+    "colorama==0.4.6",
+    "iniconfig==2.1.0",
+    "isort==6.0.1",
+    "macholib==1.16.4",
+    "markdown-it-py==3.0.0",
+    "mdurl==0.1.2",
+    "mypy==1.16.0",
+    "mypy-extensions==1.1.0",
+    "nest-asyncio==1.6.0",
+    "packaging==25.0",
+    "pathspec==0.12.1",
+    "pbr==6.1.1",
+    "pefile==2023.2.7",
+    "pluggy==1.6.0",
+    "pydantic==2.11.5",
+    "pydantic-core==2.33.2",
+    "pygments==2.19.1",
+    "pyinstaller==6.14.1",
+    "pyinstaller-hooks-contrib==2025.5",
+    "pyrefly==1.0.0",
+    "pytest==8.4.0",
+    "python-dotenv==1.1.0",
+    "pywin32-ctypes==0.2.3",
+    "pyyaml==6.0.2",
+    "rich==14.0.0",
+    "ruff==0.11.13",
+    "setuptools==80.9.0",
+    "stevedore==5.4.1",
+    "structlog==25.4.0",
+    "types-aiofiles==24.1.0.20250606",
+    "typing-extensions==4.14.0",
+    "typing-inspection==0.4.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.setuptools]
+packages = ["pystarter"]
+package-dir = {"" = "src"}
+include-package-data = true
+
+
+[project.scripts]
+pystarter = "pystarter:main"
+
+[tool.pip-tools]
+generate-hashes = true
+
+
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pystarter.version.VERSION"}
+readme = {file = ["README.md"]}
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]
