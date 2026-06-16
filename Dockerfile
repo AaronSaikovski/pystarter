@@ -1,6 +1,6 @@
-FROM python:3.13-slim
+FROM python:3.13.7-slim
 
-# Install system dependencies required by Playwright
+# Install system dependencies for headless GUI applications
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
@@ -22,25 +22,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxfixes3 \
     libxrender1 \
     libxtst6 \
-    wget \
-    libsqlite3-dev \
-    libssl-dev \
-    libcurl4-openssl-dev \
-    libffi-dev \
-    && apt-get purge -y && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PIP_NO_CACHE_DIR=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PYTHONPATH=/app/src
 
 # Set the working directory
 WORKDIR /app
 
 # Copy and install dependencies first for better layer caching
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --only-binary=:all: -r requirements.txt
 
 # Copy the entire source code
 COPY ./src /app/src

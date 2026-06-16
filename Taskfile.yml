@@ -149,21 +149,29 @@ tasks:
 
   ###############################################################################
 
-  ## docker-build - builds a docker image based on the docker file.
+  ## docker-build - builds a Docker image for linux/arm64.
   docker-build:
-    desc: "builds a docker image based on the docker file."
+    desc: "Builds a Docker image for linux/arm64."
     deps: [deps]
     cmds:
       - docker build --platform linux/arm64 -t $PROJECT_NAME:latest .
 
   ###############################################################################
 
-  ## docker-run - runs the docker container.
+  ## docker-run - runs the Docker container.
   docker-run:
-    desc: "runs the docker container."
-    #deps: [docker-build]
+    desc: "Runs the Docker container."
+    deps: [docker-build]
     cmds:
-      - docker run $PROJECT_NAME:latest
+      - docker run --rm $PROJECT_NAME:latest
+
+  ###############################################################################
+
+  ## docker-rm - removes the Docker image and container.
+  docker-rm:
+    desc: "Removes the Docker image and any associated containers."
+    cmds:
+      - docker rmi $PROJECT_NAME:latest --force 2>/dev/null || true
 
   ###############################################################################
 
