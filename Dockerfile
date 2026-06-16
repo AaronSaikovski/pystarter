@@ -1,6 +1,7 @@
 FROM python:3.13.7-slim
 
 # Install system dependencies for headless GUI applications
+# Upgrade openssl to patch CVE-2026-31789, CVE-2026-28388, CVE-2026-28390
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
@@ -22,6 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxfixes3 \
     libxrender1 \
     libxtst6 \
+    openssl \
+    && apt-get upgrade -y openssl \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set environment variables
