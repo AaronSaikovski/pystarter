@@ -80,9 +80,9 @@ pyinstaller-hooks-contrib==2025.5
     #   pyinstaller
 pyrefly==1.0.0
     # via pystarter (pyproject.toml)
-pytest==8.4.0
+pytest==9.0.3
     # via pystarter (pyproject.toml)
-python-dotenv==1.1.0
+python-dotenv==1.2.2
     # via pystarter (pyproject.toml)
 pywin32-ctypes==0.2.3
     # via pystarter (pyproject.toml)
@@ -96,7 +96,7 @@ rich==14.0.0
     #   bandit
 ruff==0.11.13
     # via pystarter (pyproject.toml)
-setuptools==80.9.0
+setuptools==83.0.0
     # via
     #   pystarter (pyproject.toml)
     #   pbr
